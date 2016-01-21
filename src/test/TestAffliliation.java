@@ -3,6 +3,8 @@
  */
 package test;
 
+import io.Settings;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +12,7 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
-import scenarioeditor.GameFiles;
+import io.GameFiles;
 
 /**
  * @author Maximilian
@@ -33,8 +35,9 @@ public class TestAffliliation {
 		HashMap<String, Object> map = Settings
 				.getSettings(
 						"C:\\Program Files (x86)\\Steam\\SteamApps\\common\\For The Glory",
+						"German",
 						"C:\\Program Files (x86)\\Steam\\steamapps\\common\\For The Glory\\Scenarios\\1419 - The Grand Campaign.eeg");
 
-		GameFiles.loadAffilation(map, img);
+		io.GameFiles.loadAffilation(map, img);
 	}
 }

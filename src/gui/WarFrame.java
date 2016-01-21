@@ -328,8 +328,8 @@ public class WarFrame extends JFrame {
 						+ (id + 2)
 						+ " }\n    type = war\n    expirydate = { year = 0 month = january day = 0 }\n    participant = { "
 						+ editorPane.getText() + " }\n}";
-				scenarioeditor.GlobalDataPanel.jepWar
-						.setText(scenarioeditor.GlobalDataPanel.jepWar
+				gui.GlobalDataPanel.jepWar
+						.setText(gui.GlobalDataPanel.jepWar
 								.getText() + "\n" + result);
 				close();
 

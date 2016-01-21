@@ -236,8 +236,8 @@ public class AllianceFrame extends JFrame {
 						+ " day = " + comboBox.getSelectedItem().toString()
 						+ "}\n    participant = { " + editorPane.getText()
 						+ " }\n}";
-				scenarioeditor.GlobalDataPanel.jepAlliance
-						.setText(scenarioeditor.GlobalDataPanel.jepAlliance
+				gui.GlobalDataPanel.jepAlliance
+						.setText(gui.GlobalDataPanel.jepAlliance
 								.getText() + "\n" + result);
 				close();
 			}

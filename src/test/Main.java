@@ -1,5 +1,7 @@
 package test;
 
+import io.GameFiles;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -7,11 +9,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import scenarioeditor.GameFiles;
-import scenarioeditor.IMapEventListener;
-import scenarioeditor.MapPanel;
+import map.MapPanel;
 
-public class Main implements IMapEventListener {
+public class Main implements map.IMapEventListener {
 
 	public Main() {
 		// TODO Auto-generated constructor stub
@@ -40,7 +40,7 @@ public class Main implements IMapEventListener {
 			e.printStackTrace();
 		}
 		System.out.println("Images loaded");
-		GameFiles game = new GameFiles(
+		io.GameFiles game = new GameFiles(
 				"C:\\Program Files (x86)\\Steam\\SteamApps\\common\\For The Glory");
 		MapPanel map = new MapPanel(
 				img,

@@ -1,13 +1,12 @@
 package test;
 
+import gui.GlobalDataPanel;
+import io.GameFiles;
+
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JFrame;
-
-import scenarioeditor.GameFiles;
-import scenarioeditor.GlobalDataPanel;
 
 public class TestGlobalDataPanel {
 

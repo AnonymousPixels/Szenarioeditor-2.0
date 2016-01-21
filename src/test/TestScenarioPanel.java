@@ -1,13 +1,12 @@
 package test;
 
+import gui.ColonyPanel;
+import io.GameFiles;
+
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JFrame;
-
-import scenarioeditor.ColonyPanel;
-import scenarioeditor.GameFiles;
 
 public class TestScenarioPanel {
 
