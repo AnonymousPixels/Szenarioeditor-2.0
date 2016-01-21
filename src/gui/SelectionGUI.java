@@ -28,9 +28,9 @@ import main.Main;
 public class SelectionGUI {
 
 	static JFrame frame;
-	static JPanel panel;
+	static JPanel panel, pnlScenario;
 	static GridBagLayout layout;
-	static JLabel lblPath, lblMods, lblName;
+	static JLabel lblPath, lblMods, lblName, lblScenarios;
 	static JTextField txfPath, txfName;
 	static JButton btnPath, btnContinue, btnAccept;
 	static JFileChooser chooser;
@@ -117,49 +117,53 @@ public class SelectionGUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				
 
-				Thread loadingThread = new Thread(new Runnable() {
-
-					@Override
-					public void run() {
-
-						Thread loadLoadingGUI = new Thread(new Runnable() {
-
-							@Override
-							public void run() {
-
-								try {
-									loadGUI();
-								} catch (IOException | InterruptedException e) {
-
-									e.printStackTrace();
-								}
-							}
-						});
-						loadLoadingGUI.start();
-
-						try {
-							new GUI();
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-
-				if (cbxMods.getSelectedItem().equals("Neuen Mod erstellen")) {
-
-					if (txfName.getText().trim() != null && !txfName.getText().trim().equals("")) {
-
-						loadingThread.start();
-					} else
-						JOptionPane.showMessageDialog(null, "Bitte geben Sie einen Namen ein!", "Fehler  aufgetreten",
-								JOptionPane.ERROR_MESSAGE);
-				} else
-					loadingThread.start();
+//				Thread loadingThread = new Thread(new Runnable() {
+//
+//					@Override
+//					public void run() {
+//
+//						Thread loadLoadingGUI = new Thread(new Runnable() {
+//
+//							@Override
+//							public void run() {
+//
+//								try {
+//									loadGUI();
+//								} catch (IOException | InterruptedException e) {
+//
+//									e.printStackTrace();
+//								}
+//							}
+//						});
+//						loadLoadingGUI.start();
+//
+//						try {
+//							new GUI();
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//						}
+//					}
+//				});
+//
+//				if (cbxMods.getSelectedItem().equals("Neuen Mod erstellen")) {
+//
+//					if (txfName.getText().trim() != null && !txfName.getText().trim().equals("")) {
+//
+//						loadingThread.start();
+//					} else
+//						JOptionPane.showMessageDialog(null, "Bitte geben Sie einen Namen ein!", "Fehler  aufgetreten",
+//								JOptionPane.ERROR_MESSAGE);
+//				} else
+//					loadingThread.start();
 			}
 		});
 		Essentials.addComponent(panel, layout, btnAccept, 1, 7, 1, 1, 0, 0, new Insets(0, 10, 10, 10));
 		btnAccept.setVisible(false);
+		
+		
 
 		btnContinue = new JButton("weiter");
 		btnContinue.addActionListener(new ActionListener() {
@@ -230,6 +234,13 @@ public class SelectionGUI {
 		});
 		Essentials.addComponent(panel, layout, btnContinue, 1, 2, 1, 1, 0, 0, new Insets(0, 10, 10, 10));
 
+		pnlScenario = new JPanel();
+		pnlScenario.setLayout(layout);
+		pnlScenario.setBackground(Main.clrBackground);
+		Essentials.addComponent(panel, layout, pnlScenario, 0, 10, 1, 1, 1, 1, new Insets(10, 10, 10, 10));
+		
+//		lblScenarios = new JLabel("Szenario auswählen")
+		
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -289,8 +300,6 @@ public class SelectionGUI {
 	}
 
 	public static String getGameFolderName() {
-
-		String s = "";
 
 		if (cbxMods.getSelectedItem().equals("Neuen Mod erstellen"))
 			return txfName.getText().trim();
