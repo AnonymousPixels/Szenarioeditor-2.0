@@ -32,8 +32,7 @@ public class SettingReader {
 		getCultures(gamepath + "//Db//cultures.txt");
 		getTechgroups(gamepath + "//Db//Technologies//techgroups.txt");
 		getReligion(gamepath + "//Db//Religions//religions.txt");
-
-		// getScenario(scenariofilepath);
+		getScenario(scenariofilepath);
 
 	}
 
