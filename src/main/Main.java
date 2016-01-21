@@ -1,9 +1,11 @@
-package editor;
+package main;
 
 import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.UIManager;
+
+import gui.SelectionGUI;
 
 /**
  * Main class of the szenario editor. Contains main void and handles the program
@@ -13,8 +15,9 @@ import javax.swing.UIManager;
  */
 public class Main {
 
-	static Color clrBackground = new Color(240, 240, 240), clrFont = new Color(0, 0, 0);
-	static Font fntStandard = new Font("Verdana", 0, 12), fntBold = new Font("Verdana", 1, 12);
+	public static Color clrBackground = new Color(240, 240, 240), clrFont = new Color(0, 0, 0);
+	public static Font fntStandard = new Font("Verdana", 0, 12);
+	public static Font fntBold = new Font("Verdana", 1, 12);
 	
 	public static void main(String[] args) {
 

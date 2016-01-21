@@ -1,4 +1,4 @@
-package editor;
+package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,6 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import essentials.Essentials;
+import main.Main;
 
 public class SelectionGUI {
 
