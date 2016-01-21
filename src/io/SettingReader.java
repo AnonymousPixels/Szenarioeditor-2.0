@@ -6,23 +6,23 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class SettingReader {
-	public static BufferedReader reader;
-	public static FileReader file;
-	public static String input, line;
-	public static int brackets, bracketposition, counter_country, counter_techgroups, counter_techspeed,
+	private static BufferedReader reader;
+	private static FileReader file;
+	private static String input, line;
+	private static int brackets, bracketposition, counter_country, counter_techgroups, counter_techspeed,
 			counter_cultures, counter_cultures_city, counter_cultures_buildings, counter_cultures_color;
 
-	public static HashMap<String, Object> provincesettinghashmap, provincehashmap, countryhashmap,
+	private static HashMap<String, Object> provincesettinghashmap, provincehashmap, countryhashmap,
 			countrysettinghashmap, countrynamehashmap, culturesettingshashmap, culturehashmap, techgroupsettingshashmap,
 
 			techgrouphashmap, scenarioeeghashmap, scenariohashmap;
 
-	public static String id, name, efficiency, tolerance, tp_negotiation, ferocity, combat, colonization_difficulty,
+	private static String id, name, efficiency, tolerance, tp_negotiation, ferocity, combat, colonization_difficulty,
 			continent, region, area, type, terrain, size_modifier, climate, religion, culture, manpower, income, goods,
 			city_name, cot_modifier;
-	public static String varification;
+	private static String varification;
 
-	public static String countryname, countrytag;
+	private static String countryname, countrytag;
 
 	public SettingReader(String gamepath, String language, HashMap<String, Object> hashmap, String scenariofilepath)
 			throws IOException {
@@ -37,7 +37,7 @@ public class SettingReader {
 
 	}
 
-	public void getReligion(String culturefilepath) throws IOException {
+	private void getReligion(String culturefilepath) throws IOException {
 
 		culturesettingshashmap = new HashMap<String, Object>();
 		file = new FileReader(culturefilepath);
@@ -236,7 +236,7 @@ public class SettingReader {
 
 	}
 
-	public void getCountrySettings(String countryfilepath) throws IOException {
+	private void getCountrySettings(String countryfilepath) throws IOException {
 		countrysettinghashmap = new HashMap<String, Object>();
 		file = new FileReader(countryfilepath);
 		reader = new BufferedReader(file);
@@ -376,7 +376,7 @@ public class SettingReader {
 
 	}
 
-	public void getTechgroups(String techgroupfilepath) throws IOException {
+	private void getTechgroups(String techgroupfilepath) throws IOException {
 
 		techgroupsettingshashmap = new HashMap<String, Object>();
 		file = new FileReader(techgroupfilepath);
@@ -450,7 +450,7 @@ public class SettingReader {
 		Settings.putInHashMap("techgroupdata", techgroupsettingshashmap.clone());
 	}
 
-	public void getProvinces(String countryfilepath) throws IOException {
+	private void getProvinces(String countryfilepath) throws IOException {
 		provincesettinghashmap = new HashMap<String, Object>();
 		file = new FileReader(countryfilepath);
 		reader = new BufferedReader(file);
@@ -473,12 +473,6 @@ public class SettingReader {
 		}
 
 		line = sb.toString();
-
-		// input = reader.readLine();
-		// while (input != null) {
-		// line = line + input + "\n";
-		// input = reader.readLine();
-		// }
 
 		String[] lines = line.split("[\\r\\n]+");
 		provincehashmap = new HashMap<String, Object>();
@@ -529,15 +523,6 @@ public class SettingReader {
 				}
 			}
 		}
-
-		// Iterator<Entry<String, Object>> it =
-		// provincesettinghashmap.entrySet().iterator();
-		// while (it.hasNext()) {
-		// Map.Entry pair = (Map.Entry) it.next();
-		// System.out.println(pair.getKey() + " = " + pair.getValue());
-		// }
-
-		// Settings.hashmap.put("provincedata", provincesettinghashmap.clone());
 
 		Settings.putInHashMap("provincedata", provincesettinghashmap.clone());
 
