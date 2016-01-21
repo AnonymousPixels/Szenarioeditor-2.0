@@ -92,7 +92,7 @@ public class SelectionGUI {
 		txfName.setBackground(Color.white);
 		Essentials.addComponent(panel, layout, txfName, 0, 6, 2, 1, 1, 0, new Insets(0, 10, 10, 10));
 		txfName.setVisible(false);
-		
+
 		btnPath = new JButton("auswählen");
 		btnPath.addActionListener(new ActionListener() {
 
@@ -160,7 +160,7 @@ public class SelectionGUI {
 		});
 		Essentials.addComponent(panel, layout, btnAccept, 1, 7, 1, 1, 0, 0, new Insets(0, 10, 10, 10));
 		btnAccept.setVisible(false);
-		
+
 		btnContinue = new JButton("weiter");
 		btnContinue.addActionListener(new ActionListener() {
 
@@ -170,7 +170,7 @@ public class SelectionGUI {
 				try {
 
 					if (path.trim() != null && !path.trim().equals("")) {
-						
+
 						String modDir = path + "//Mods";
 						File[] modFiles = new File(modDir).listFiles();
 						String[] mods = new String[1];
@@ -218,7 +218,7 @@ public class SelectionGUI {
 						btnContinue.setEnabled(false);
 
 						frame.pack();
-						
+
 					} else
 						JOptionPane.showMessageDialog(null, "Geben Sie bitte den korrekten Spiel-Pfad an!",
 								"Fehler aufgetreten", JOptionPane.ERROR_MESSAGE);
@@ -229,12 +229,12 @@ public class SelectionGUI {
 			}
 		});
 		Essentials.addComponent(panel, layout, btnContinue, 1, 2, 1, 1, 0, 0, new Insets(0, 10, 10, 10));
-		
+
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
-	
+
 	static void loadGUI() throws IOException, InterruptedException {
 
 		frame.setTitle("Lädt...");
@@ -282,5 +282,18 @@ public class SelectionGUI {
 			}
 
 		frame.setVisible(false);
+	}
+
+	public static String getModFolderName() {
+		return path;
+	}
+
+	public static String getGameFolderName() {
+
+		String s = "";
+
+		if (cbxMods.getSelectedItem().equals("Neuen Mod erstellen"))
+			return txfName.getText().trim();
+		return (String) cbxMods.getSelectedItem();
 	}
 }

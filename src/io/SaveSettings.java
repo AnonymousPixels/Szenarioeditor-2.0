@@ -9,6 +9,8 @@ import java.util.Set;
 
 import javax.swing.JOptionPane;
 
+import gui.SelectionGUI;
+
 public class SaveSettings {
 
 	public static FileWriter file;
@@ -16,21 +18,21 @@ public class SaveSettings {
 
 	public SaveSettings(HashMap<String, Object> settings) throws IOException {
 		try {
-			File file = new File(Main.getGameFolderName());
-			String string = "//Mods//mod_" + Main.getModFolderName() + ".txt";
+			File file = new File(SelectionGUI.getGameFolderName());
+			String string = "//Mods//mod_" + SelectionGUI.getModFolderName() + ".txt";
 
 			FileWriter filewriter = new FileWriter(file + string);
 			filewriter.write(
 					"# File created with FTG Scenarioedior from Felix Beutter, Johannes Groﬂ & Maximilian von Gaisberg\r\n");
 			filewriter.write("mod = {\r\n");
-			filewriter.write("\tname = \"" + Main.getModFolderName() + "\"\r\n");
-			filewriter.write("\tdir = \"" + Main.getModFolderName() + "\"\r\n");
+			filewriter.write("\tname = \"" + SelectionGUI.getModFolderName() + "\"\r\n");
+			filewriter.write("\tdir = \"" + SelectionGUI.getModFolderName() + "\"\r\n");
 			filewriter.write("\tshields = { \"classic\" }\r\n");
 			filewriter.write("\tstyle = { \"classic\" }\r\n");
 			filewriter.write("}\r\n");
 			filewriter.close();
 
-			file = new File(file + "\\Mods\\" + Main.getModFolderName());
+			file = new File(file + "\\Mods\\" + SelectionGUI.getModFolderName());
 
 			if (!file.exists()) {
 
@@ -44,7 +46,7 @@ public class SaveSettings {
 
 			}
 
-			file = new File(Main.getGameFolderName() + "\\Mods\\" + Main.getModFolderName());
+			file = new File(SelectionGUI.getGameFolderName() + "\\Mods\\" + SelectionGUI.getModFolderName());
 
 			SaveCountries(settings, file + "//db//countries.txt");
 			SaveProvinces(settings, file + "//db//Map//provinces.txt");
