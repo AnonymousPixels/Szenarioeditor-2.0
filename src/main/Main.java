@@ -15,9 +15,9 @@ import gui.SelectionGUI;
  */
 public class Main {
 
-	public static Color clrBackground = new Color(240, 240, 240), clrFont = new Color(0, 0, 0);
-	public static Font fntStandard = new Font("Verdana", 0, 12);
-	public static Font fntBold = new Font("Verdana", 1, 12);
+	public static Color clrBackground = new Color(240, 240, 240);
+	public static Font fntStandard = new Font("", 0, 12);
+	public static Font fntBold = new Font("", 1, 12);
 	
 	public static void main(String[] args) {
 
