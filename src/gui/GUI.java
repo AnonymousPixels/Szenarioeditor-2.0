@@ -95,6 +95,5 @@ public class GUI {
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.WRAP_TAB_LAYOUT);
 		addComponent(panel, layout, tabbedPane, 1, 0, 1, 2, 0, 1, new Insets(5, 0, 5, 5));
-		
 	}
 }
