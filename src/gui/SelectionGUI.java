@@ -103,7 +103,7 @@ public class SelectionGUI implements ActionListener {
 			@Override
 			public void run() {
 
-				BufferedImage frontend, backend;
+				BufferedImage frontend = null, backend = null;
 				try {
 
 					frontend = ImageIO.read(SelectionGUI.class.getResource("/frontend.png"));
