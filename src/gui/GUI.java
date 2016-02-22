@@ -15,14 +15,16 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import io.Settings;
+import map.MapPanel;
 
 public class GUI {
 
 	JFrame frame;
 	GridBagLayout layout = new GridBagLayout();
-	JPanel panel;
+	JPanel panel, pnlOptions;
 	JTabbedPane tabbedPane;
 	
+	MapPanel mapPanel;
 
 	HashMap<String, Object> dataMap = new HashMap<String, Object>();
 
@@ -84,7 +86,15 @@ public class GUI {
 		panel.setLayout(layout);
 		addComponent(frame, layout, panel, 0, 0, 1, 1, 1, 1, new Insets(0, 0, 0, 0));
 
+		mapPanel = SelectionGUI.getMapPanel();
+		addComponent(panel, layout, mapPanel, 0, 0, 1, 1, 1, 1, new Insets(5, 5, 5, 5));
+		
+		pnlOptions = new JPanel();
+		pnlOptions.setLayout(layout);
+		addComponent(panel, layout, pnlOptions, 0, 1, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
+		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.WRAP_TAB_LAYOUT);
-
+		addComponent(panel, layout, tabbedPane, 1, 0, 1, 2, 0, 1, new Insets(5, 0, 5, 5));
+		
 	}
 }

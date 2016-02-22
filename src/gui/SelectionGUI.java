@@ -37,7 +37,7 @@ public class SelectionGUI implements ActionListener {
 	JButton btnChooseGamePath, btnGamePath, btnMod, btnFinish;
 	JComboBox<String> cbxMod, cbxLanguage, cbxScenario;
 
-	MapPanel mapPanel;
+	static MapPanel mapPanel;
 
 	static String gamePath, mod, language, scenario;
 
@@ -263,34 +263,44 @@ public class SelectionGUI implements ActionListener {
 
 			} catch (Exception ex) {
 
-				JOptionPane.showMessageDialog(null, "Wählen Sie den korrekten FTG-Ordner aus", "Fehler aufgetreten",
+				JOptionPane.showMessageDialog(null, "Fehlerhafter FTG-Ordner! Programm wird beendet...", "Fehler aufgetreten",
 						JOptionPane.ERROR_MESSAGE);
+				System.exit(1);
 			}
 
 		} else if (e.getSource() == btnFinish) {
+			
+			try {
+			
+				language = cbxLanguage.getSelectedItem().toString();
+				scenario = cbxScenario.getSelectedItem().toString() + ".eeg";
 
-			language = cbxLanguage.getSelectedItem().toString();
-			scenario = cbxScenario.getSelectedItem().toString() + ".eeg";
+				cbxLanguage.setEnabled(false);
+				cbxScenario.setEnabled(false);
+				btnFinish.setEnabled(false);
 
-			cbxLanguage.setEnabled(false);
-			cbxScenario.setEnabled(false);
-			btnFinish.setEnabled(false);
+				pnlLoading = new JPanel();
+				pnlLoading.setLayout(layout);
+				addComponent(panel, layout, pnlLoading, 0, 11, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
 
-			pnlLoading = new JPanel();
-			pnlLoading.setLayout(layout);
-			addComponent(panel, layout, pnlLoading, 0, 11, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
+				lblLoadingAnimation = new JLabel(new ImageIcon(SelectionGUI.class.getResource("/loading.gif")));
+				addComponent(pnlLoading, layout, lblLoadingAnimation, 0, 0, 1, 1, 0, 0, new Insets(0, 0, 0, 5));
 
-			lblLoadingAnimation = new JLabel(new ImageIcon(SelectionGUI.class.getResource("/loading.gif")));
-			addComponent(pnlLoading, layout, lblLoadingAnimation, 0, 0, 1, 1, 0, 0, new Insets(0, 0, 0, 5));
+				lblLoading = new JLabel("Laden...", SwingConstants.LEFT);
+				lblLoading.setFont(Main.fntBold);
+				addComponent(pnlLoading, layout, lblLoading, 1, 0, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
 
-			lblLoading = new JLabel("Laden...", SwingConstants.LEFT);
-			lblLoading.setFont(Main.fntBold);
-			addComponent(pnlLoading, layout, lblLoading, 1, 0, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
+				frame.pack();
+				frame.setLocationRelativeTo(null);
 
-			frame.pack();
-			frame.setLocationRelativeTo(null);
-
-			new GUI();
+				new GUI();S
+				
+			} catch(Exception ex) {
+				
+				JOptionPane.showMessageDialog(null, "Fehlerhafter FTG-Ordner! Programm wird beendet...", "Fehler aufgetreten",
+						JOptionPane.ERROR_MESSAGE);
+				System.exit(1);
+			}
 		}
 	}
 
@@ -308,5 +318,9 @@ public class SelectionGUI implements ActionListener {
 
 	public static String getMod() {
 		return mod;
+	}
+	
+	public static MapPanel getMapPanel() {
+		return mapPanel;
 	}
 }
