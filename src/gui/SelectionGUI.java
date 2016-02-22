@@ -293,7 +293,7 @@ public class SelectionGUI implements ActionListener {
 				frame.pack();
 				frame.setLocationRelativeTo(null);
 
-				new GUI();S
+				new GUI();
 				
 			} catch(Exception ex) {
 				
