@@ -226,7 +226,7 @@ public class SelectionGUI implements ActionListener {
 			pnlLoading.setLayout(layout);
 			addComponent(panel, layout, pnlLoading, 0, 11, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
 
-			lblLoadingAnimation = new JLabel(new ImageIcon(TestSelectionGUI.class.getResource("/loading.gif")));
+			lblLoadingAnimation = new JLabel(new ImageIcon(SelectionGUI.class.getResource("/loading.gif")));
 			addComponent(pnlLoading, layout, lblLoadingAnimation, 0, 0, 1, 1, 0, 0, new Insets(0, 0, 0, 5));
 
 			lblLoading = new JLabel("Laden...", SwingConstants.LEFT);
