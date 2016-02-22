@@ -16,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -106,112 +107,131 @@ public class SelectionGUI implements ActionListener {
 
 		} else if (e.getSource() == btnGamePath) {
 
-			gamePath = txfGamePath.getText();
+			try {
 
-			String[] mods = new String[1];
-			mods[0] = "Kein Mod";
+				gamePath = txfGamePath.getText();
 
-			File[] modFiles = new File(gamePath + "//Mods").listFiles();
-			for (int i = 0; i < modFiles.length; i++) {
+				String[] mods = new String[1];
+				mods[0] = "Kein Mod";
 
-				if (modFiles[i].isDirectory()) {
+				File[] modFiles = new File(gamePath + "//Mods").listFiles();
+				if (modFiles != null)
+					for (int i = 0; i < modFiles.length; i++) {
 
-					String[] mods2 = new String[mods.length + 1];
-					System.arraycopy(mods, 0, mods2, 0, mods.length);
-					mods2[mods.length] = modFiles[i].getName();
-					mods = mods2;
-				}
+						if (modFiles[i].isDirectory()) {
+
+							String[] mods2 = new String[mods.length + 1];
+							System.arraycopy(mods, 0, mods2, 0, mods.length);
+							mods2[mods.length] = modFiles[i].getName();
+							mods = mods2;
+						}
+					}
+
+				btnChooseGamePath.setEnabled(false);
+				txfGamePath.setEnabled(false);
+				btnGamePath.setEnabled(false);
+
+				lblMod = new JLabel("Mod (Szenario)", SwingConstants.LEFT);
+				lblMod.setFont(Main.fntBold);
+				addComponent(panel, layout, lblMod, 0, 3, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
+
+				cbxMod = new JComboBox<>(mods);
+				addComponent(panel, layout, cbxMod, 0, 4, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
+
+				addComponent(panel, layout, new JPanel(), 0, 5, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
+
+				btnMod = new JButton("weiter");
+				btnMod.addActionListener(this);
+				addComponent(panel, layout, btnMod, 1, 5, 1, 1, 0, 0, new Insets(0, 5, 5, 5));
+
+				frame.pack();
+				frame.setLocationRelativeTo(null);
+
+			} catch (Exception ex) {
+
+				JOptionPane.showMessageDialog(null, "Wählen Sie den korrekten FTG-Ordner aus", "Fehler aufgetreten",
+						JOptionPane.ERROR_MESSAGE);
 			}
-
-			btnChooseGamePath.setEnabled(false);
-			txfGamePath.setEnabled(false);
-			btnGamePath.setEnabled(false);
-
-			lblMod = new JLabel("Mod (Szenario)", SwingConstants.LEFT);
-			lblMod.setFont(Main.fntBold);
-			addComponent(panel, layout, lblMod, 0, 3, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
-
-			cbxMod = new JComboBox<>(mods);
-			addComponent(panel, layout, cbxMod, 0, 4, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
-
-			addComponent(panel, layout, new JPanel(), 0, 5, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
-
-			btnMod = new JButton("weiter");
-			btnMod.addActionListener(this);
-			addComponent(panel, layout, btnMod, 1, 5, 1, 1, 0, 0, new Insets(0, 5, 5, 5));
-
-			frame.pack();
-			frame.setLocationRelativeTo(null);
 
 		} else if (e.getSource() == btnMod) {
 
-			if (!cbxMod.getSelectedItem().equals("Kein Mod"))
-				mod = cbxMod.getSelectedItem().toString();
+			try {
 
-			String[] languages = new String[0];
+				if (!cbxMod.getSelectedItem().equals("Kein Mod"))
+					mod = cbxMod.getSelectedItem().toString();
 
-			String languagesPath = gamePath + "//Localisation";
-			if (!cbxMod.getSelectedItem().equals("Kein Mod"))
-				languagesPath = gamePath + "//Mods//" + cbxMod.getSelectedItem() + "//Localisation";
+				String[] languages = new String[0];
 
-			File[] languagesFiles = new File(languagesPath).listFiles();
-			for (int i = 0; i < languagesFiles.length; i++) {
+				String languagesPath = gamePath + "//Localisation";
+				if (!cbxMod.getSelectedItem().equals("Kein Mod"))
+					languagesPath = gamePath + "//Mods//" + cbxMod.getSelectedItem() + "//Localisation";
 
-				if (languagesFiles[i].isDirectory()) {
+				File[] languagesFiles = new File(languagesPath).listFiles();
+				if (languagesFiles != null)
+					for (int i = 0; i < languagesFiles.length; i++) {
 
-					String[] languages2 = new String[languages.length + 1];
-					System.arraycopy(languages, 0, languages2, 0, languages.length);
-					languages2[languages.length] = languagesFiles[i].getName();
-					languages = languages2;
-				}
+						if (languagesFiles[i].isDirectory()) {
+
+							String[] languages2 = new String[languages.length + 1];
+							System.arraycopy(languages, 0, languages2, 0, languages.length);
+							languages2[languages.length] = languagesFiles[i].getName();
+							languages = languages2;
+						}
+					}
+
+				cbxMod.setEnabled(false);
+				btnMod.setEnabled(false);
+
+				lblLanguage = new JLabel("Sprache", SwingConstants.LEFT);
+				lblLanguage.setFont(Main.fntBold);
+				addComponent(panel, layout, lblLanguage, 0, 6, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
+
+				cbxLanguage = new JComboBox<>(languages);
+				addComponent(panel, layout, cbxLanguage, 0, 7, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
+
+				String[] scenarios = new String[0];
+
+				String scenariosPath = gamePath + "//Scenarios";
+				if (!cbxMod.getSelectedItem().equals("Kein Mod"))
+					scenariosPath = gamePath + "//Mods//" + cbxMod.getSelectedItem() + "//Scenarios";
+
+				File[] scenariosFiles = new File(scenariosPath).listFiles();
+				if (scenariosFiles != null)
+					for (int i = 0; i < scenariosFiles.length; i++) {
+
+						if (scenariosFiles[i].isFile()
+								&& scenariosFiles[i].getName().substring((int) scenariosFiles[i].getName().length() - 4,
+										(int) scenariosFiles[i].getName().length()).equals(".eeg")) {
+
+							String[] scenarios2 = new String[scenarios.length + 1];
+							System.arraycopy(scenarios, 0, scenarios2, 0, scenarios.length);
+							scenarios2[scenarios.length] = scenariosFiles[i].getName().substring(0,
+									scenariosFiles[i].getName().length() - 4);
+							scenarios = scenarios2;
+						}
+					}
+
+				lblScenario = new JLabel("Szenario");
+				lblScenario.setFont(Main.fntBold);
+				addComponent(panel, layout, lblScenario, 0, 8, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
+
+				cbxScenario = new JComboBox<>(scenarios);
+				addComponent(panel, layout, cbxScenario, 0, 9, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
+
+				addComponent(panel, layout, new JPanel(), 0, 10, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
+
+				btnFinish = new JButton("weiter");
+				btnFinish.addActionListener(this);
+				addComponent(panel, layout, btnFinish, 1, 10, 1, 1, 0, 0, new Insets(0, 5, 5, 5));
+
+				frame.pack();
+				frame.setLocationRelativeTo(null);
+
+			} catch (Exception ex) {
+
+				JOptionPane.showMessageDialog(null, "Wählen Sie den korrekten FTG-Ordner aus", "Fehler aufgetreten",
+						JOptionPane.ERROR_MESSAGE);
 			}
-
-			cbxMod.setEnabled(false);
-			btnMod.setEnabled(false);
-
-			lblLanguage = new JLabel("Sprache", SwingConstants.LEFT);
-			lblLanguage.setFont(Main.fntBold);
-			addComponent(panel, layout, lblLanguage, 0, 6, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
-
-			cbxLanguage = new JComboBox<>(languages);
-			addComponent(panel, layout, cbxLanguage, 0, 7, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
-
-			String[] scenarios = new String[0];
-
-			String scenariosPath = gamePath + "//Scenarios";
-			if (!cbxMod.getSelectedItem().equals("Kein Mod"))
-				scenariosPath = gamePath + "//Mods//" + cbxMod.getSelectedItem() + "//Scenarios";
-
-			File[] scenariosFiles = new File(scenariosPath).listFiles();
-			for (int i = 0; i < scenariosFiles.length; i++) {
-
-				if (scenariosFiles[i].isFile()
-						&& scenariosFiles[i].getName().substring((int) scenariosFiles[i].getName().length() - 4,
-								(int) scenariosFiles[i].getName().length()).equals(".eeg")) {
-
-					String[] scenarios2 = new String[scenarios.length + 1];
-					System.arraycopy(scenarios, 0, scenarios2, 0, scenarios.length);
-					scenarios2[scenarios.length] = scenariosFiles[i].getName().substring(0,
-							scenariosFiles[i].getName().length() - 4);
-					scenarios = scenarios2;
-				}
-			}
-
-			lblScenario = new JLabel("Szenario");
-			lblScenario.setFont(Main.fntBold);
-			addComponent(panel, layout, lblScenario, 0, 8, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
-
-			cbxScenario = new JComboBox<>(scenarios);
-			addComponent(panel, layout, cbxScenario, 0, 9, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
-
-			addComponent(panel, layout, new JPanel(), 0, 10, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
-
-			btnFinish = new JButton("weiter");
-			btnFinish.addActionListener(this);
-			addComponent(panel, layout, btnFinish, 1, 10, 1, 1, 0, 0, new Insets(0, 5, 5, 5));
-
-			frame.pack();
-			frame.setLocationRelativeTo(null);
 
 		} else if (e.getSource() == btnFinish) {
 
