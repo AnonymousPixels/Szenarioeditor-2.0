@@ -35,12 +35,10 @@ public class MapPanel extends JPanel implements MouseListener,
 	int newHeight, newWidth;
 	private List<IMapEventListener> listeners;
 
-	public MapPanel(BufferedImage Frontend, BufferedImage Backend,
-			Map<Color, Integer> map) {
+	public MapPanel(BufferedImage Frontend, BufferedImage Backend) {
 		super();
 		this.setOpaque(true);
 		this.setLayout(null);
-		map2 = map;
 		listeners = new ArrayList<IMapEventListener>();
 		biFrontendOriginal = Frontend;
 		biBackend = biBackendOriginal = Backend;
