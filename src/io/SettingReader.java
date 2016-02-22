@@ -9,17 +9,14 @@ public class SettingReader {
 	private static BufferedReader reader;
 	private static FileReader file;
 	private static String input, line;
-	private static int brackets, bracketposition, counter_country, counter_techgroups, counter_techspeed,
-			counter_cultures, counter_cultures_city, counter_cultures_buildings, counter_cultures_color;
+	private static int brackets;
 
 	private static HashMap<String, Object> provincesettinghashmap, provincehashmap, countryhashmap,
 			countrysettinghashmap, countrynamehashmap, culturesettingshashmap, culturehashmap, techgroupsettingshashmap,
 
 			techgrouphashmap, scenarioeeghashmap, scenariohashmap;
 
-	private static String id, name, efficiency, tolerance, tp_negotiation, ferocity, combat, colonization_difficulty,
-			continent, region, area, type, terrain, size_modifier, climate, religion, culture, manpower, income, goods,
-			city_name, cot_modifier;
+	private static String id;
 	private static String varification;
 
 	private static String countryname, countrytag;
@@ -32,7 +29,7 @@ public class SettingReader {
 		getCultures(gamepath + "//Db//cultures.txt");
 		getTechgroups(gamepath + "//Db//Technologies//techgroups.txt");
 		getReligion(gamepath + "//Db//Religions//religions.txt");
-		
+
 		getScenario(scenariofilepath);
 
 	}
@@ -75,10 +72,9 @@ public class SettingReader {
 			if (input.contains("}")) {
 				brackets--;
 			}
-			if (input.trim().charAt(0) == '#') {
+			if (!input.equals("") && input != null && input.trim().charAt(0) == '#') {
 
-			}
-			if ((input != null || input != "") && brackets == 1 && input.contains("={")) {
+			} else if ((input != null || input != "") && brackets == 1 && input.contains("={")) {
 				varification = input.substring(0, input.indexOf("="));
 			}
 			String[] checkFor = { "predominance", "force_conversion", "defender", "annexable", "annex_same_penalty",
@@ -113,7 +109,6 @@ public class SettingReader {
 		scenariohashmap = new HashMap<String, Object>();
 		file = new FileReader(scenariofilepath);
 		reader = new BufferedReader(file);
-		// input = reader.readLine();
 		line = "";
 		String includestring = "";
 
@@ -134,7 +129,6 @@ public class SettingReader {
 		line = sb.toString();
 
 		String[] lines = line.split("[\\r\\n]+");
-
 		for (String input : lines) {
 			input = input.replaceAll("\t", "");
 			input = input.replaceAll("\"", "");
@@ -148,13 +142,9 @@ public class SettingReader {
 			if (input.contains("}")) {
 				brackets--;
 			}
-			if (input.trim().charAt(0) == '#') {
+			if (!input.equals("") && input != null && input.trim().charAt(0) == '#') {
 
-			}
-			if (input.contains("history")) {
-			}
-
-			if (brackets >= 1) {
+			} else if (brackets >= 1) {
 				String[] checkFor = { "name", "startyear", "endyear", "startdate" };
 				for (String s : checkFor) {
 
@@ -273,7 +263,7 @@ public class SettingReader {
 			if (input.contains("}")) {
 				brackets--;
 			}
-			if (input.trim().charAt(0) == '#') {
+			if (!input.equals("") && input != null && input.trim().charAt(0) == '#') {
 
 			}
 			if (input.contains("history")) {
@@ -349,7 +339,7 @@ public class SettingReader {
 			if (input.contains("}")) {
 				brackets--;
 			}
-			if (input.trim().charAt(0) == '#') {
+			if (!input.equals("") && input != null && input.trim().charAt(0) == '#') {
 
 			}
 			if ((input != null || input != "") && brackets == 1 && input.contains("={")) {
@@ -424,7 +414,7 @@ public class SettingReader {
 			if (input.contains("}")) {
 				brackets--;
 			}
-			if (input.trim().charAt(0) == '#') {
+			if (!input.equals("") && input != null && input.trim().charAt(0) == '#') {
 
 			}
 			if ((input != null || input != "") && brackets == 1 && input.contains("={")) {
@@ -487,8 +477,7 @@ public class SettingReader {
 			if (input.contains("}")) {
 				brackets--;
 			}
-			if (input.trim().charAt(0) == '#') {
-
+			if (!input.equals("") && input != null && input.trim().charAt(0) == '#') {
 			}
 			String[] checkFor = { "terrain", "sea_adjacency", "tolerance", "tp_negotiation", "efficiency", "ferocity",
 					"combat", "colonization_difficulty", "cot_modifier", "city_name", "goods", "income", "manpower",
