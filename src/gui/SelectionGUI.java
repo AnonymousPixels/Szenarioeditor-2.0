@@ -21,7 +21,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import main.Main;
-import test.TestSelectionGUI;
 
 public class SelectionGUI implements ActionListener {
 
@@ -42,7 +41,7 @@ public class SelectionGUI implements ActionListener {
 		frame.setResizable(false);
 		frame.setLayout(layout);
 
-		ImageIcon icon = new ImageIcon(TestSelectionGUI.class.getResource("/logo.png"));
+		ImageIcon icon = new ImageIcon(SelectionGUI.class.getResource("/logo.png"));
 		frame.setIconImage(icon.getImage());
 
 		panel = new JPanel();
