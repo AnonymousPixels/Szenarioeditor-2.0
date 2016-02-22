@@ -149,23 +149,22 @@ public class SelectionGUI implements ActionListener {
 				mods[0] = "Kein Mod";
 
 				File[] modFiles = new File(gamePath + "//Mods").listFiles();
-				if (modFiles != null)
-					for (int i = 0; i < modFiles.length; i++) {
+				for (int i = 0; i < modFiles.length; i++) {
 
-						if (modFiles[i].isDirectory()) {
+					if (modFiles[i].isDirectory()) {
 
-							String[] mods2 = new String[mods.length + 1];
-							System.arraycopy(mods, 0, mods2, 0, mods.length);
-							mods2[mods.length] = modFiles[i].getName();
-							mods = mods2;
-						}
+						String[] mods2 = new String[mods.length + 1];
+						System.arraycopy(mods, 0, mods2, 0, mods.length);
+						mods2[mods.length] = modFiles[i].getName();
+						mods = mods2;
 					}
+				}
 
 				btnChooseGamePath.setEnabled(false);
 				txfGamePath.setEnabled(false);
 				btnGamePath.setEnabled(false);
 
-				lblMod = new JLabel("Mod (Szenario)", SwingConstants.LEFT);
+				lblMod = new JLabel("Mod", SwingConstants.LEFT);
 				lblMod.setFont(Main.fntBold);
 				addComponent(panel, layout, lblMod, 0, 3, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
 
@@ -185,6 +184,7 @@ public class SelectionGUI implements ActionListener {
 
 				JOptionPane.showMessageDialog(null, "Wählen Sie den korrekten FTG-Ordner aus", "Fehler aufgetreten",
 						JOptionPane.ERROR_MESSAGE);
+				ex.printStackTrace();
 			}
 
 		} else if (e.getSource() == btnMod) {
@@ -201,17 +201,16 @@ public class SelectionGUI implements ActionListener {
 					languagesPath = gamePath + "//Mods//" + cbxMod.getSelectedItem() + "//Localisation";
 
 				File[] languagesFiles = new File(languagesPath).listFiles();
-				if (languagesFiles != null)
-					for (int i = 0; i < languagesFiles.length; i++) {
+				for (int i = 0; i < languagesFiles.length; i++) {
 
-						if (languagesFiles[i].isDirectory()) {
+					if (languagesFiles[i].isDirectory()) {
 
-							String[] languages2 = new String[languages.length + 1];
-							System.arraycopy(languages, 0, languages2, 0, languages.length);
-							languages2[languages.length] = languagesFiles[i].getName();
-							languages = languages2;
-						}
+						String[] languages2 = new String[languages.length + 1];
+						System.arraycopy(languages, 0, languages2, 0, languages.length);
+						languages2[languages.length] = languagesFiles[i].getName();
+						languages = languages2;
 					}
+				}
 
 				cbxMod.setEnabled(false);
 				btnMod.setEnabled(false);
@@ -230,20 +229,19 @@ public class SelectionGUI implements ActionListener {
 					scenariosPath = gamePath + "//Mods//" + cbxMod.getSelectedItem() + "//Scenarios";
 
 				File[] scenariosFiles = new File(scenariosPath).listFiles();
-				if (scenariosFiles != null)
-					for (int i = 0; i < scenariosFiles.length; i++) {
+				for (int i = 0; i < scenariosFiles.length; i++) {
 
-						if (scenariosFiles[i].isFile()
-								&& scenariosFiles[i].getName().substring((int) scenariosFiles[i].getName().length() - 4,
-										(int) scenariosFiles[i].getName().length()).equals(".eeg")) {
+					if (scenariosFiles[i].isFile()
+							&& scenariosFiles[i].getName().substring((int) scenariosFiles[i].getName().length() - 4,
+									(int) scenariosFiles[i].getName().length()).equals(".eeg")) {
 
-							String[] scenarios2 = new String[scenarios.length + 1];
-							System.arraycopy(scenarios, 0, scenarios2, 0, scenarios.length);
-							scenarios2[scenarios.length] = scenariosFiles[i].getName().substring(0,
-									scenariosFiles[i].getName().length() - 4);
-							scenarios = scenarios2;
-						}
+						String[] scenarios2 = new String[scenarios.length + 1];
+						System.arraycopy(scenarios, 0, scenarios2, 0, scenarios.length);
+						scenarios2[scenarios.length] = scenariosFiles[i].getName().substring(0,
+								scenariosFiles[i].getName().length() - 4);
+						scenarios = scenarios2;
 					}
+				}
 
 				lblScenario = new JLabel("Szenario");
 				lblScenario.setFont(Main.fntBold);
@@ -263,15 +261,16 @@ public class SelectionGUI implements ActionListener {
 
 			} catch (Exception ex) {
 
-				JOptionPane.showMessageDialog(null, "Fehlerhafter FTG-Ordner! Programm wird beendet...", "Fehler aufgetreten",
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Fehlerhafter FTG-Ordner! Programm wird beendet...",
+						"Fehler aufgetreten", JOptionPane.ERROR_MESSAGE);
+				ex.printStackTrace();
 				System.exit(1);
 			}
 
 		} else if (e.getSource() == btnFinish) {
-			
+
 			try {
-			
+
 				language = cbxLanguage.getSelectedItem().toString();
 				scenario = cbxScenario.getSelectedItem().toString() + ".eeg";
 
@@ -294,11 +293,12 @@ public class SelectionGUI implements ActionListener {
 				frame.setLocationRelativeTo(null);
 
 				new GUI();
-				
-			} catch(Exception ex) {
-				
-				JOptionPane.showMessageDialog(null, "Fehlerhafter FTG-Ordner! Programm wird beendet...", "Fehler aufgetreten",
-						JOptionPane.ERROR_MESSAGE);
+
+			} catch (Exception ex) {
+
+				JOptionPane.showMessageDialog(null, "Fehlerhafter FTG-Ordner! Programm wird beendet...",
+						"Fehler aufgetreten", JOptionPane.ERROR_MESSAGE);
+				ex.printStackTrace();
 				System.exit(1);
 			}
 		}
@@ -319,7 +319,7 @@ public class SelectionGUI implements ActionListener {
 	public static String getMod() {
 		return mod;
 	}
-	
+
 	public static MapPanel getMapPanel() {
 		return mapPanel;
 	}
