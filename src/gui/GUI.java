@@ -104,16 +104,12 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 	Dimension minSize = new Dimension(1200, 720);
 	Color clrBackground = new Color(240, 240, 240), clrStandard = new Color(0, 0, 0);
 	Font fntStandard = new Font("Verdana", 0, 12);
-	static String name = Strings.getString("name"), version = Strings.getString("version"),
-			build = Strings.getString("build"), title = name + " | Version: " + version + " (Build: " + build + ")", selectedCountryItem;
+	static String selectedCountryItem;
 	// TODO change scenarioFilePath
-	String[] months = { Strings.getString("Month.1"), Strings.getString("Month.2"), Strings.getString("Month.3"),
-			Strings.getString("Month.4"), Strings.getString("Month.5"), Strings.getString("Month.6"),
-			Strings.getString("Month.7"), Strings.getString("Month.8"), Strings.getString("Month.9"),
-			Strings.getString("Month.10"), Strings.getString("Month.11"), Strings.getString("Month.12") },
-			CountryCategories = { Strings.getString("Category.1"), Strings.getString("Category.2"),
-					Strings.getString("Category.3"), Strings.getString("Category.4"), Strings.getString("Category.5") },
-			CasusBelliTypes = { Strings.getString("CasusBelliPermanent"), Strings.getString("CasusBelliTemporary") },
+	String[] months = {"Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"},
+			CountryCategories = { "Allgemein", "Politik",
+					"Technologie/Verhalten", "Diplomatie", "Einheiten" },
+			CasusBelliTypes = { "permanent", "temporär" },
 			climate = { "arctic", "tropical", "temperate", "ncontinental", "scontinental", "tundra", "desertic" },
 			days = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18",
 					"19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30" };
@@ -167,7 +163,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 
 	void loadFrame() {
 
-		frame = new JFrame(title);
+		frame = new JFrame("FTG Szenario Editor | v2.0");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(true);
 		frame.setLayout(layout);
@@ -197,12 +193,12 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 
 		addComponent(pnlOther, layout, new JPanel(), 0, 0, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
 
-		btnLoad = new JButton(Strings.getString("GUI.3"));
+		btnLoad = new JButton("laden");
 		btnLoad.addActionListener(this);
 		btnLoad.setEnabled(false);
 		addComponent(pnlOther, layout, btnLoad, 1, 0, 1, 1, 0, 0, new Insets(0, 0, 5, 5));
 
-		btnSave = new JButton(Strings.getString("GUI.4"));
+		btnSave = new JButton("speichern");
 		btnSave.addActionListener(this);
 		addComponent(pnlOther, layout, btnSave, 2, 0, 1, 1, 0, 0, new Insets(0, 0, 5, 5));
 
@@ -255,9 +251,9 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlMap, layout, pnlOther, 0, 1, 1, 1, 1, 0, new Insets(0, 10, 10, 10));
 		addComponent(panel, layout, splitPane, 0, 0, 1, 1, 1, 1, new Insets(0, 0, 0, 0));
 
-		tabbedPane.add(Strings.getString("GUI.0"), pnlGeneral);
-		tabbedPane.add(Strings.getString("GUI.1"), pnlProvinces);
-		tabbedPane.add(Strings.getString("GUI.2"), pnlCountries);
+		tabbedPane.add("Allgemein", pnlGeneral);
+		tabbedPane.add("Provinzen", pnlProvinces);
+		tabbedPane.add("Länder", pnlCountries);
 		tabbedPane.setPreferredSize(new Dimension(280, 500));
 
 		setData(dataMap);
@@ -455,7 +451,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		pnlCountries.setLayout(layout);
 		pnlCountries.setBackground(clrBackground);
 
-		lblCountry = new JLabel(Strings.getString("GUI.5"), SwingConstants.LEFT);
+		lblCountry = new JLabel("Land", SwingConstants.LEFT);
 		lblCountry.setForeground(clrStandard);
 		lblCountry.setFont(fntStandard);
 		addComponent(pnlCountries, layout, lblCountry, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
@@ -471,11 +467,11 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		cbxCountry.addActionListener(this);
 		addComponent(pnlCountry, layout, cbxCountry, 0, 0, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 
-		btnCountryDelete = new JButton(Strings.getString("GUI.6"));
+		btnCountryDelete = new JButton("entf.");
 		btnCountryDelete.addActionListener(this);
 		addComponent(pnlCountry, layout, btnCountryDelete, 1, 0, 1, 1, 0, 0, new Insets(0, 0, 5, 5));
 
-		lblCategory = new JLabel(Strings.getString("GUI.7"), SwingConstants.LEFT);
+		lblCategory = new JLabel("Kategorie", SwingConstants.LEFT);
 		lblCategory.setForeground(clrStandard);
 		lblCategory.setFont(fntStandard);
 		addComponent(pnlCountries, layout, lblCategory, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -526,26 +522,26 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		pnlProvincesControl = new JPanel();
 		pnlProvincesControl.setLayout(layout);
 		pnlProvincesControl.setBackground(clrBackground);
-		pnlProvincesControl.setBorder(BorderFactory.createTitledBorder(Strings.getString("GUI.35")));
+		pnlProvincesControl.setBorder(BorderFactory.createTitledBorder("Provinzkontrolle"));
 		addComponent(pnlCountryGeneral, layout, pnlProvincesControl, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
 		y++;
 
-		rbnOwnProvinces = new JRadioButton(Strings.getString("GUI.36"));
+		rbnOwnProvinces = new JRadioButton("in Besitz");
 		rbnOwnProvinces.addChangeListener(this);
 		rbnOwnProvinces.setFont(fntStandard);
 		addComponent(pnlProvincesControl, layout, rbnOwnProvinces, 0, 0, 1, 1, 0, 0, new Insets(5, 5, 5, 5));
 
-		rbnControlledProvinces = new JRadioButton(Strings.getString("GUI.37"));
+		rbnControlledProvinces = new JRadioButton("kontrolliert");
 		rbnControlledProvinces.addChangeListener(this);
 		rbnControlledProvinces.setFont(fntStandard);
 		addComponent(pnlProvincesControl, layout, rbnControlledProvinces, 1, 0, 1, 1, 0, 0, new Insets(5, 0, 5, 5));
 
-		rbnNationalProvinces = new JRadioButton(Strings.getString("GUI.38"));
+		rbnNationalProvinces = new JRadioButton("national");
 		rbnNationalProvinces.addChangeListener(this);
 		rbnNationalProvinces.setFont(fntStandard);
 		addComponent(pnlProvincesControl, layout, rbnNationalProvinces, 0, 1, 1, 1, 0, 0, new Insets(0, 5, 5, 5));
 
-		rbnKnownProvinces = new JRadioButton(Strings.getString("GUI.39"));
+		rbnKnownProvinces = new JRadioButton("bekannt");
 		rbnKnownProvinces.addChangeListener(this);
 		rbnKnownProvinces.setFont(fntStandard);
 		addComponent(pnlProvincesControl, layout, rbnKnownProvinces, 1, 1, 1, 1, 0, 0, new Insets(0, 0, 5, 5));
@@ -556,7 +552,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		grpProvinces.add(rbnNationalProvinces);
 		grpProvinces.add(rbnKnownProvinces);
 
-		lblSelectedProvince = new JLabel(Strings.getString("GUI.40"), SwingConstants.LEFT);
+		lblSelectedProvince = new JLabel("Provinz", SwingConstants.LEFT);
 		lblSelectedProvince.setForeground(clrStandard);
 		lblSelectedProvince.setFont(fntStandard);
 		addComponent(pnlProvincesControl, layout, lblSelectedProvince, 0, 2, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
@@ -565,13 +561,13 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		cbxSelectedProvince.addActionListener(this);
 		addComponent(pnlProvincesControl, layout, cbxSelectedProvince, 0, 3, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
 
-		chbMajorProvince = new JCheckBox(Strings.getString("GUI.41"));
+		chbMajorProvince = new JCheckBox("Darlehenshöhe");
 		chbMajorProvince.setSelected(false);
 		chbMajorProvince.setForeground(clrStandard);
 		chbMajorProvince.setFont(fntStandard);
 		addComponent(pnlProvincesControl, layout, chbMajorProvince, 0, 4, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
 
-		lblCopy = new JLabel(Strings.getString("GUI.42"), SwingConstants.LEFT);
+		lblCopy = new JLabel("Kopie von", SwingConstants.LEFT);
 		lblCopy.setForeground(clrStandard);
 		lblCopy.setFont(fntStandard);
 		addComponent(pnlProvincesControl, layout, lblCopy, 0, 5, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -580,7 +576,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		cbxCopy.addActionListener(this);
 		addComponent(pnlProvincesControl, layout, cbxCopy, 0, 6, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
 
-		lblCulture = new JLabel(Strings.getString("GUI.58"), SwingConstants.LEFT);
+		lblCulture = new JLabel("Kultur", SwingConstants.LEFT);
 		lblCulture.setForeground(clrStandard);
 		lblCulture.setFont(fntStandard);
 		addComponent(pnlCountryGeneral, layout, lblCulture, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
@@ -591,7 +587,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryGeneral, layout, cbxCulture, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblReligion = new JLabel(Strings.getString("GUI.59"), SwingConstants.LEFT);
+		lblReligion = new JLabel("Religion", SwingConstants.LEFT);
 		lblReligion.setForeground(clrStandard);
 		lblReligion.setFont(fntStandard);
 		addComponent(pnlCountryGeneral, layout, lblReligion, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -608,19 +604,19 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryGeneral, layout, pnlCountryGeneralBooleans, 0, y, 1, 1, 1, 0, new Insets(0, 5, 10, 5));
 		y++;
 
-		lblColonialnation = new JLabel(Strings.getString("GUI.44"), SwingConstants.LEFT);
+		lblColonialnation = new JLabel("Kolonialnation", SwingConstants.LEFT);
 		lblColonialnation.setForeground(clrStandard);
 		lblColonialnation.setFont(fntStandard);
 		addComponent(pnlCountryGeneralBooleans, layout, lblColonialnation, 0, 0, 1, 1, 1, 0, new Insets(0, 0, 0, 5));
 
-		rbnColonialnationTrue = new JRadioButton(Strings.getString("GUI.45"));
+		rbnColonialnationTrue = new JRadioButton("ja");
 		rbnColonialnationTrue.addChangeListener(this);
 		rbnColonialnationTrue.setFont(fntStandard);
 		rbnColonialnationTrue.setSelected(true);
 		addComponent(pnlCountryGeneralBooleans, layout, rbnColonialnationTrue, 1, 0, 1, 1, 0, 0,
 				new Insets(0, 0, 0, 5));
 
-		rbnColonialnationFalse = new JRadioButton(Strings.getString("GUI.46"));
+		rbnColonialnationFalse = new JRadioButton("nein");
 		rbnColonialnationFalse.addChangeListener(this);
 		rbnColonialnationFalse.setFont(fntStandard);
 		addComponent(pnlCountryGeneralBooleans, layout, rbnColonialnationFalse, 2, 0, 1, 1, 0, 0,
@@ -630,19 +626,19 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		grpColonialnation.add(rbnColonialnationTrue);
 		grpColonialnation.add(rbnColonialnationFalse);
 
-		lblCancelledLoans = new JLabel(Strings.getString("GUI.47"), SwingConstants.LEFT);
+		lblCancelledLoans = new JLabel("Annulierte Darlehen", SwingConstants.LEFT);
 		lblCancelledLoans.setForeground(clrStandard);
 		lblCancelledLoans.setFont(fntStandard);
 		addComponent(pnlCountryGeneralBooleans, layout, lblCancelledLoans, 0, 1, 1, 1, 1, 0, new Insets(0, 0, 0, 5));
 
-		rbnCancelledLoansTrue = new JRadioButton(Strings.getString("GUI.45"));
+		rbnCancelledLoansTrue = new JRadioButton("ja");
 		rbnCancelledLoansTrue.addChangeListener(this);
 		rbnCancelledLoansTrue.setFont(fntStandard);
 		rbnCancelledLoansTrue.setSelected(true);
 		addComponent(pnlCountryGeneralBooleans, layout, rbnCancelledLoansTrue, 1, 1, 1, 1, 0, 0,
 				new Insets(0, 0, 0, 5));
 
-		rbnCancelledLoansFalse = new JRadioButton(Strings.getString("GUI.46"));
+		rbnCancelledLoansFalse = new JRadioButton("nein");
 		rbnCancelledLoansFalse.addChangeListener(this);
 		rbnCancelledLoansFalse.setFont(fntStandard);
 		addComponent(pnlCountryGeneralBooleans, layout, rbnCancelledLoansFalse, 2, 1, 1, 1, 0, 0,
@@ -652,18 +648,18 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		grpCancelledLoans.add(rbnCancelledLoansTrue);
 		grpCancelledLoans.add(rbnCancelledLoansFalse);
 
-		lblExtendedLoans = new JLabel(Strings.getString("GUI.48"), SwingConstants.LEFT);
+		lblExtendedLoans = new JLabel("Verlängerte Darlehen", SwingConstants.LEFT);
 		lblExtendedLoans.setForeground(clrStandard);
 		lblExtendedLoans.setFont(fntStandard);
 		addComponent(pnlCountryGeneralBooleans, layout, lblExtendedLoans, 0, 2, 1, 1, 1, 0, new Insets(0, 0, 0, 5));
 
-		rbnExtendedLoansTrue = new JRadioButton(Strings.getString("GUI.45"));
+		rbnExtendedLoansTrue = new JRadioButton("ja");
 		rbnExtendedLoansTrue.addChangeListener(this);
 		rbnExtendedLoansTrue.setFont(fntStandard);
 		rbnExtendedLoansTrue.setSelected(true);
 		addComponent(pnlCountryGeneralBooleans, layout, rbnExtendedLoansTrue, 1, 2, 1, 1, 0, 0, new Insets(0, 0, 0, 5));
 
-		rbnExtendedLoansFalse = new JRadioButton(Strings.getString("GUI.46"));
+		rbnExtendedLoansFalse = new JRadioButton("nein");
 		rbnExtendedLoansFalse.addChangeListener(this);
 		rbnExtendedLoansFalse.setFont(fntStandard);
 		addComponent(pnlCountryGeneralBooleans, layout, rbnExtendedLoansFalse, 2, 2, 1, 1, 0, 0,
@@ -679,7 +675,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryGeneral, layout, pnlCountryGeneralTxf, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblColonialAttempts = new JLabel(Strings.getString("GUI.43"));
+		lblColonialAttempts = new JLabel("Kolonialisierungsversuche");
 		lblColonialAttempts.setForeground(clrStandard);
 		lblColonialAttempts.setFont(fntStandard);
 		addComponent(pnlCountryGeneralTxf, layout, lblColonialAttempts, 0, 0, 1, 1, 1, 0, new Insets(0, 0, 5, 5));
@@ -691,7 +687,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfColonialAttempts.setEditable(true);
 		addComponent(pnlCountryGeneralTxf, layout, txfColonialAttempts, 1, 0, 1, 1, 0, 0, new Insets(0, 0, 5, 0));
 
-		lblLoansize = new JLabel(Strings.getString("GUI.49"), SwingConstants.LEFT);
+		lblLoansize = new JLabel("Darlehenshöhe", SwingConstants.LEFT);
 		lblLoansize.setForeground(clrStandard);
 		lblLoansize.setFont(fntStandard);
 		addComponent(pnlCountryGeneralTxf, layout, lblLoansize, 0, 1, 1, 1, 1, 0, new Insets(0, 0, 5, 5));
@@ -703,7 +699,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfLoansize.setEditable(true);
 		addComponent(pnlCountryGeneralTxf, layout, txfLoansize, 1, 1, 1, 1, 0, 0, new Insets(0, 0, 5, 0));
 
-		lblTreasury = new JLabel(Strings.getString("GUI.50"), SwingConstants.LEFT);
+		lblTreasury = new JLabel("Staatsschatz", SwingConstants.LEFT);
 		lblTreasury.setForeground(clrStandard);
 		lblTreasury.setFont(fntStandard);
 		addComponent(pnlCountryGeneralTxf, layout, lblTreasury, 0, 2, 1, 1, 1, 0, new Insets(0, 0, 5, 5));
@@ -715,7 +711,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfTreasury.setEditable(true);
 		addComponent(pnlCountryGeneralTxf, layout, txfTreasury, 1, 2, 1, 1, 0, 0, new Insets(0, 0, 5, 0));
 
-		lblInflation = new JLabel(Strings.getString("GUI.51"), SwingConstants.LEFT);
+		lblInflation = new JLabel("Inflation", SwingConstants.LEFT);
 		lblInflation.setForeground(clrStandard);
 		lblInflation.setFont(fntStandard);
 		addComponent(pnlCountryGeneralTxf, layout, lblInflation, 0, 3, 1, 1, 1, 0, new Insets(0, 0, 5, 5));
@@ -727,7 +723,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfInflation.setEditable(true);
 		addComponent(pnlCountryGeneralTxf, layout, txfInflation, 1, 3, 1, 1, 0, 0, new Insets(0, 0, 5, 0));
 
-		lblColonists = new JLabel(Strings.getString("GUI.52"), SwingConstants.LEFT);
+		lblColonists = new JLabel("Kolonisten", SwingConstants.LEFT);
 		lblColonists.setForeground(clrStandard);
 		lblColonists.setFont(fntStandard);
 		addComponent(pnlCountryGeneralTxf, layout, lblColonists, 0, 4, 1, 1, 1, 0, new Insets(0, 0, 5, 5));
@@ -739,7 +735,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfColonists.setEditable(true);
 		addComponent(pnlCountryGeneralTxf, layout, txfColonists, 1, 4, 1, 1, 0, 0, new Insets(0, 0, 5, 0));
 
-		lblMerchants = new JLabel(Strings.getString("GUI.53"), SwingConstants.LEFT);
+		lblMerchants = new JLabel("Händler", SwingConstants.LEFT);
 		lblMerchants.setForeground(clrStandard);
 		lblMerchants.setFont(fntStandard);
 		addComponent(pnlCountryGeneralTxf, layout, lblMerchants, 0, 5, 1, 1, 1, 0, new Insets(0, 0, 5, 5));
@@ -751,7 +747,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfMerchants.setEditable(true);
 		addComponent(pnlCountryGeneralTxf, layout, txfMerchants, 1, 5, 1, 1, 0, 0, new Insets(0, 0, 5, 0));
 
-		lblDiplomats = new JLabel(Strings.getString("GUI.54"), SwingConstants.LEFT);
+		lblDiplomats = new JLabel("Diplomaten", SwingConstants.LEFT);
 		lblDiplomats.setForeground(clrStandard);
 		lblDiplomats.setFont(fntStandard);
 		addComponent(pnlCountryGeneralTxf, layout, lblDiplomats, 0, 6, 1, 1, 1, 0, new Insets(0, 0, 5, 5));
@@ -763,7 +759,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfDiplomats.setEditable(true);
 		addComponent(pnlCountryGeneralTxf, layout, txfDiplomats, 1, 6, 1, 1, 0, 0, new Insets(0, 0, 5, 0));
 
-		lblMissionaries = new JLabel(Strings.getString("GUI.55"), SwingConstants.LEFT);
+		lblMissionaries = new JLabel("Missionare", SwingConstants.LEFT);
 		lblMissionaries.setForeground(clrStandard);
 		lblMissionaries.setFont(fntStandard);
 		addComponent(pnlCountryGeneralTxf, layout, lblMissionaries, 0, 7, 1, 1, 1, 0, new Insets(0, 0, 5, 5));
@@ -775,7 +771,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfMissionaries.setEditable(true);
 		addComponent(pnlCountryGeneralTxf, layout, txfMissionaries, 1, 7, 1, 1, 0, 0, new Insets(0, 0, 5, 0));
 
-		lblBadBoy = new JLabel(Strings.getString("GUI.56"), SwingConstants.LEFT);
+		lblBadBoy = new JLabel("Badboy", SwingConstants.LEFT);
 		lblBadBoy.setForeground(clrStandard);
 		lblBadBoy.setFont(fntStandard);
 		addComponent(pnlCountryGeneralTxf, layout, lblBadBoy, 0, 8, 1, 1, 1, 0, new Insets(0, 0, 5, 5));
@@ -787,7 +783,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfBadboy.setEditable(true);
 		addComponent(pnlCountryGeneralTxf, layout, txfBadboy, 1, 8, 1, 1, 0, 0, new Insets(0, 0, 5, 0));
 
-		lblWhiteMan = new JLabel(Strings.getString("GUI.57"), SwingConstants.LEFT);
+		lblWhiteMan = new JLabel("White man", SwingConstants.LEFT);
 		lblWhiteMan.setForeground(clrStandard);
 		lblWhiteMan.setFont(fntStandard);
 		addComponent(pnlCountryGeneralTxf, layout, lblWhiteMan, 0, 9, 1, 1, 1, 0, new Insets(0, 0, 5, 5));
@@ -817,7 +813,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryTechnology, layout, pnlTechnology, 0, y, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
 		y++;
 
-		lblTechnologyLand = new JLabel(Strings.getString("GUI.26"), SwingConstants.LEFT);
+		lblTechnologyLand = new JLabel("Land (0 - 60)", SwingConstants.LEFT);
 		lblTechnologyLand.setForeground(clrStandard);
 		lblTechnologyLand.setFont(fntStandard);
 		addComponent(pnlTechnology, layout, lblTechnologyLand, 0, 0, 1, 1, 1, 0, new Insets(5, 5, 5, 10));
@@ -829,7 +825,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfTechnologyLand.setEditable(true);
 		addComponent(pnlTechnology, layout, txfTechnologyLand, 1, 0, 1, 1, 0, 0, new Insets(5, 0, 5, 5));
 
-		lblTechnologyNaval = new JLabel(Strings.getString("GUI.27"), SwingConstants.LEFT);
+		lblTechnologyNaval = new JLabel("See (0 - 60)", SwingConstants.LEFT);
 		lblTechnologyNaval.setForeground(clrStandard);
 		lblTechnologyNaval.setFont(fntStandard);
 		addComponent(pnlTechnology, layout, lblTechnologyNaval, 0, 1, 1, 1, 1, 0, new Insets(5, 5, 5, 10));
@@ -841,7 +837,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfTechnologyNaval.setEditable(true);
 		addComponent(pnlTechnology, layout, txfTechnologyNaval, 1, 1, 1, 1, 0, 0, new Insets(5, 0, 5, 5));
 
-		lblTrade = new JLabel(Strings.getString("GUI.28"), SwingConstants.LEFT);
+		lblTrade = new JLabel("Handel (0 - 10)", SwingConstants.LEFT);
 		lblTrade.setForeground(clrStandard);
 		lblTrade.setFont(fntStandard);
 		addComponent(pnlTechnology, layout, lblTrade, 0, 2, 1, 1, 1, 0, new Insets(5, 5, 5, 10));
@@ -853,7 +849,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfTechnologyTrade.setEditable(true);
 		addComponent(pnlTechnology, layout, txfTechnologyTrade, 1, 2, 1, 1, 0, 0, new Insets(5, 0, 5, 5));
 
-		lblInfra = new JLabel(Strings.getString("GUI.29"), SwingConstants.LEFT);
+		lblInfra = new JLabel("Infrastruktur (0 - 10)", SwingConstants.LEFT);
 		lblInfra.setForeground(clrStandard);
 		lblInfra.setFont(fntStandard);
 		addComponent(pnlTechnology, layout, lblInfra, 0, 3, 1, 1, 1, 0, new Insets(5, 5, 5, 10));
@@ -865,7 +861,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfTechnologyInfra.setEditable(true);
 		addComponent(pnlTechnology, layout, txfTechnologyInfra, 1, 3, 1, 1, 0, 0, new Insets(5, 0, 5, 5));
 
-		lblStability = new JLabel(Strings.getString("GUI.30"), SwingConstants.LEFT);
+		lblStability = new JLabel("Stabilität (-3 - 3)", SwingConstants.LEFT);
 		lblStability.setForeground(clrStandard);
 		lblStability.setFont(fntStandard);
 		addComponent(pnlTechnology, layout, lblStability, 0, 4, 1, 1, 1, 0, new Insets(5, 5, 5, 10));
@@ -877,7 +873,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfTechnologyStability.setEditable(true);
 		addComponent(pnlTechnology, layout, txfTechnologyStability, 1, 4, 1, 1, 0, 0, new Insets(5, 0, 5, 5));
 
-		lblTechnologyGroup = new JLabel(Strings.getString("GUI.31"), SwingConstants.LEFT);
+		lblTechnologyGroup = new JLabel("Technologiegruppe", SwingConstants.LEFT);
 		lblTechnologyGroup.setForeground(clrStandard);
 		lblTechnologyGroup.setFont(fntStandard);
 		addComponent(pnlCountryTechnology, layout, lblTechnologyGroup, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
@@ -888,7 +884,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryTechnology, layout, cbxTechnologyGroup, 0, y, 1, 1, 0, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblAi = new JLabel(Strings.getString("GUI.32"), SwingConstants.LEFT);
+		lblAi = new JLabel("AI/KI-Datei", SwingConstants.LEFT);
 		lblAi.setForeground(clrStandard);
 		lblAi.setFont(fntStandard);
 		addComponent(pnlCountryTechnology, layout, lblAi, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -899,7 +895,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryTechnology, layout, cbxAi, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblMonarchtable = new JLabel(Strings.getString("GUI.33"), SwingConstants.LEFT);
+		lblMonarchtable = new JLabel("Monarchendatei", SwingConstants.LEFT);
 		lblMonarchtable.setForeground(clrStandard);
 		lblMonarchtable.setFont(fntStandard);
 		addComponent(pnlCountryTechnology, layout, lblMonarchtable, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -910,7 +906,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryTechnology, layout, cbxMonarchtable, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblLeadertable = new JLabel(Strings.getString("GUI.34"), SwingConstants.LEFT);
+		lblLeadertable = new JLabel("Anführerdatei", SwingConstants.LEFT);
 		lblLeadertable.setForeground(clrStandard);
 		lblLeadertable.setFont(fntStandard);
 		addComponent(pnlCountryTechnology, layout, lblLeadertable, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -933,7 +929,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		pnlCountryDiplomacy.setBackground(clrBackground);
 		addComponent(pnlCountrySettings, layout, pnlCountryDiplomacy, 0, 0, 1, 1, 1, 1, new Insets(0, 0, 0, 0));
 
-		lblSelectedCountry = new JLabel(Strings.getString("GUI.60"));
+		lblSelectedCountry = new JLabel("Beziehungsland");
 		lblSelectedCountry.setForeground(clrStandard);
 		lblSelectedCountry.setFont(fntStandard);
 		addComponent(pnlCountryDiplomacy, layout, lblSelectedCountry, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
@@ -950,7 +946,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryDiplomacy, layout, pnlDiplomacyRelation, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
 		y++;
 
-		lblDiplomacyRelation = new JLabel(Strings.getString("GUI.61"), SwingConstants.LEFT);
+		lblDiplomacyRelation = new JLabel("Beziehung (-200 - 200)", SwingConstants.LEFT);
 		lblDiplomacyRelation.setForeground(clrStandard);
 		lblDiplomacyRelation.setFont(fntStandard);
 		addComponent(pnlDiplomacyRelation, layout, lblDiplomacyRelation, 0, 0, 1, 1, 1, 0, new Insets(0, 0, 0, 5));
@@ -962,7 +958,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfDiplomacyRelation.setEditable(true);
 		addComponent(pnlDiplomacyRelation, layout, txfDiplomacyRelation, 1, 0, 1, 1, 0, 0, new Insets(0, 0, 0, 0));
 
-		chbCasusBelli = new JCheckBox(Strings.getString("GUI.65"));
+		chbCasusBelli = new JCheckBox("Casus Belli");
 		chbCasusBelli.setSelected(false);
 		chbCasusBelli.setForeground(clrStandard);
 		chbCasusBelli.setFont(fntStandard);
@@ -970,7 +966,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryDiplomacy, layout, chbCasusBelli, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
 		y++;
 
-		lblCasusBelliDate = new JLabel(Strings.getString("GUI.67"), SwingConstants.LEFT);
+		lblCasusBelliDate = new JLabel("Datum (dd.mm.yyyy)", SwingConstants.LEFT);
 		lblCasusBelliDate.setForeground(clrStandard);
 		lblCasusBelliDate.setFont(fntStandard);
 		addComponent(pnlCountryDiplomacy, layout, lblCasusBelliDate, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -1003,7 +999,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 
 		addComponent(pnlCasusBelli, layout, new JPanel(), 5, 0, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
 
-		lblCasusBelliType = new JLabel(Strings.getString("GUI.66"), SwingConstants.LEFT);
+		lblCasusBelliType = new JLabel("Typ", SwingConstants.LEFT);
 		lblCasusBelliType.setForeground(clrStandard);
 		lblCasusBelliType.setFont(fntStandard);
 		addComponent(pnlCountryDiplomacy, layout, lblCasusBelliType, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -1014,7 +1010,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryDiplomacy, layout, cbxCasusBelli, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblWarned = new JLabel(Strings.getString("GUI.68"));
+		lblWarned = new JLabel("Warnung (dd.mm.yyyy)");
 		lblWarned.setForeground(clrStandard);
 		lblWarned.setFont(fntStandard);
 		addComponent(pnlCountryDiplomacy, layout, lblWarned, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
@@ -1047,7 +1043,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 
 		addComponent(pnlWarned, layout, new JPanel(), 5, 0, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
 
-		lblIndependence = new JLabel(Strings.getString("GUI.69"), SwingConstants.LEFT);
+		lblIndependence = new JLabel("Unabhängigkeitsgarantie", SwingConstants.LEFT);
 		lblIndependence.setForeground(clrStandard);
 		lblIndependence.setFont(fntStandard);
 		addComponent(pnlCountryDiplomacy, layout, lblIndependence, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
@@ -1080,7 +1076,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 
 		addComponent(pnlIndependence, layout, new JPanel(), 5, 0, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
 
-		lblPeace = new JLabel(Strings.getString("GUI.70"), SwingConstants.LEFT);
+		lblPeace = new JLabel("Friedensvertrag (dd.mm.yyyy)", SwingConstants.LEFT);
 		lblPeace.setForeground(clrStandard);
 		lblPeace.setFont(fntStandard);
 		addComponent(pnlCountryDiplomacy, layout, lblPeace, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
@@ -1113,7 +1109,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 
 		addComponent(pnlPeace, layout, new JPanel(), 5, 0, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
 
-		chbTradeAgreement = new JCheckBox(Strings.getString("GUI.62"));
+		chbTradeAgreement = new JCheckBox("Handelsabkommen");
 		chbTradeAgreement.setSelected(false);
 		chbTradeAgreement.setForeground(clrStandard);
 		chbTradeAgreement.setFont(fntStandard);
@@ -1121,7 +1117,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryDiplomacy, layout, chbTradeAgreement, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
 		y++;
 
-		chbMilitaryAccess = new JCheckBox(Strings.getString("GUI.63"));
+		chbMilitaryAccess = new JCheckBox("Militär Einmarsch gewähren");
 		chbMilitaryAccess.setSelected(false);
 		chbMilitaryAccess.setForeground(clrStandard);
 		chbMilitaryAccess.setFont(fntStandard);
@@ -1129,7 +1125,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryDiplomacy, layout, chbMilitaryAccess, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		chbRefuseTrade = new JCheckBox(Strings.getString("GUI.64"));
+		chbRefuseTrade = new JCheckBox("Handel verweigern");
 		chbRefuseTrade.setSelected(false);
 		chbRefuseTrade.setForeground(clrStandard);
 		chbRefuseTrade.setFont(fntStandard);
@@ -1149,7 +1145,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		pnlCountryUnits.setBackground(clrBackground);
 		addComponent(pnlCountrySettings, layout, pnlCountryUnits, 0, 0, 1, 1, 1, 1, new Insets(0, 0, 0, 0));
 
-		lblArmy = new JLabel(Strings.getString("GUI.71"), SwingConstants.LEFT);
+		lblArmy = new JLabel("Armeen", SwingConstants.LEFT);
 		lblArmy.setForeground(clrStandard);
 		lblArmy.setFont(fntStandard);
 		addComponent(pnlCountryUnits, layout, lblArmy, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
@@ -1166,21 +1162,21 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryUnits, layout, pnlUnits, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		btnUnitAdd = new JButton(Strings.getString("GUI.73"));
+		btnUnitAdd = new JButton("hinzuf.");
 		btnUnitAdd.addActionListener(this);
 		addComponent(pnlUnits, layout, btnUnitAdd, 0, 0, 1, 1, 0, 0, new Insets(0, 0, 0, 5));
 
-		btnUnitRename = new JButton(Strings.getString("GUI.74"));
+		btnUnitRename = new JButton("umben.");
 		btnUnitRename.addActionListener(this);
 		addComponent(pnlUnits, layout, btnUnitRename, 1, 0, 1, 1, 0, 0, new Insets(0, 0, 0, 5));
 
-		btnUnitDel = new JButton(Strings.getString("GUI.75"));
+		btnUnitDel = new JButton("entf.");
 		btnUnitDel.addActionListener(this);
 		addComponent(pnlUnits, layout, btnUnitDel, 2, 0, 1, 1, 0, 0, new Insets(0, 0, 0, 0));
 
 		addComponent(pnlUnits, layout, new JPanel(), 3, 0, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
 
-		lblUnitLocation = new JLabel(Strings.getString("GUI.76"), SwingConstants.LEFT);
+		lblUnitLocation = new JLabel("Ort", SwingConstants.LEFT);
 		lblUnitLocation.setForeground(clrStandard);
 		lblUnitLocation.setFont(fntStandard);
 		addComponent(pnlCountryUnits, layout, lblUnitLocation, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -1197,7 +1193,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryUnits, layout, pnlUnitNumbers, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblInfantry = new JLabel(Strings.getString("GUI.77"), SwingConstants.LEFT);
+		lblInfantry = new JLabel("Infanterie", SwingConstants.LEFT);
 		lblInfantry.setForeground(clrStandard);
 		lblInfantry.setFont(fntStandard);
 		addComponent(pnlUnitNumbers, layout, lblInfantry, 0, 0, 1, 1, 0, 0, new Insets(0, 0, 5, 5));
@@ -1211,7 +1207,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfInfantry.setEditable(true);
 		addComponent(pnlUnitNumbers, layout, txfInfantry, 2, 0, 1, 1, 0, 0, new Insets(0, 0, 5, 0));
 
-		lblCavalry = new JLabel(Strings.getString("GUI.78"), SwingConstants.LEFT);
+		lblCavalry = new JLabel("Kavalerie", SwingConstants.LEFT);
 		lblCavalry.setForeground(clrStandard);
 		lblCavalry.setFont(fntStandard);
 		addComponent(pnlUnitNumbers, layout, lblCavalry, 0, 1, 1, 1, 0, 0, new Insets(0, 0, 5, 5));
@@ -1225,7 +1221,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfCavalry.setEditable(true);
 		addComponent(pnlUnitNumbers, layout, txfCavalry, 2, 1, 1, 1, 0, 0, new Insets(0, 0, 5, 0));
 
-		lblArtillery = new JLabel(Strings.getString("GUI.79"), SwingConstants.LEFT);
+		lblArtillery = new JLabel("Artillerie", SwingConstants.LEFT);
 		lblArtillery.setForeground(clrStandard);
 		lblArtillery.setFont(fntStandard);
 		addComponent(pnlUnitNumbers, layout, lblArtillery, 0, 2, 1, 1, 0, 0, new Insets(0, 0, 0, 5));
@@ -1239,7 +1235,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfArtillery.setEditable(true);
 		addComponent(pnlUnitNumbers, layout, txfArtillery, 2, 2, 1, 1, 0, 0, new Insets(0, 0, 0, 0));
 
-		lblNavy = new JLabel(Strings.getString("GUI.72"), SwingConstants.LEFT);
+		lblNavy = new JLabel("Flotten", SwingConstants.LEFT);
 		lblNavy.setForeground(clrStandard);
 		lblNavy.setFont(fntStandard);
 		addComponent(pnlCountryUnits, layout, lblNavy, 0, y, 1, 1, 1, 0, new Insets(10, 5, 5, 5));
@@ -1256,21 +1252,21 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryUnits, layout, pnlNavalUnits, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		btnNavalUnitAdd = new JButton(Strings.getString("GUI.80"));
+		btnNavalUnitAdd = new JButton("hinzuf.");
 		btnNavalUnitAdd.addActionListener(this);
 		addComponent(pnlNavalUnits, layout, btnNavalUnitAdd, 0, 0, 1, 1, 0, 0, new Insets(0, 0, 0, 5));
 
-		btnNavalUnitRename = new JButton(Strings.getString("GUI.81"));
+		btnNavalUnitRename = new JButton("umben.");
 		btnNavalUnitRename.addActionListener(this);
 		addComponent(pnlNavalUnits, layout, btnNavalUnitRename, 1, 0, 1, 1, 0, 0, new Insets(0, 0, 0, 5));
 
-		btnNavalUnitDel = new JButton(Strings.getString("GUI.82"));
+		btnNavalUnitDel = new JButton("entf.");
 		btnNavalUnitDel.addActionListener(this);
 		addComponent(pnlNavalUnits, layout, btnNavalUnitDel, 2, 0, 1, 1, 0, 0, new Insets(0, 0, 0, 0));
 
 		addComponent(pnlNavalUnits, layout, new JPanel(), 3, 0, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
 
-		lblNavalUnitLocation = new JLabel(Strings.getString("GUI.83"), SwingConstants.LEFT);
+		lblNavalUnitLocation = new JLabel("Ort", SwingConstants.LEFT);
 		lblNavalUnitLocation.setForeground(clrStandard);
 		lblNavalUnitLocation.setFont(fntStandard);
 		addComponent(pnlCountryUnits, layout, lblNavalUnitLocation, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -1287,7 +1283,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlCountryUnits, layout, pnlNavalUnitNumbers, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblWarships = new JLabel(Strings.getString("GUI.84"), SwingConstants.LEFT);
+		lblWarships = new JLabel("Kriegsschiffe", SwingConstants.LEFT);
 		lblWarships.setForeground(clrStandard);
 		lblWarships.setFont(fntStandard);
 		addComponent(pnlNavalUnitNumbers, layout, lblWarships, 0, 0, 1, 1, 0, 0, new Insets(0, 0, 5, 5));
@@ -1301,7 +1297,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfWarships.setEditable(true);
 		addComponent(pnlNavalUnitNumbers, layout, txfWarships, 2, 0, 1, 1, 0, 0, new Insets(0, 0, 5, 0));
 
-		lblGalleys = new JLabel(Strings.getString("GUI.85"), SwingConstants.LEFT);
+		lblGalleys = new JLabel("Galeeren", SwingConstants.LEFT);
 		lblGalleys.setForeground(clrStandard);
 		lblGalleys.setFont(fntStandard);
 		addComponent(pnlNavalUnitNumbers, layout, lblGalleys, 0, 1, 1, 1, 0, 0, new Insets(0, 0, 5, 5));
@@ -1315,7 +1311,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		txfGalleys.setEditable(true);
 		addComponent(pnlNavalUnitNumbers, layout, txfGalleys, 2, 1, 1, 1, 0, 0, new Insets(0, 0, 5, 0));
 
-		lblTransports = new JLabel(Strings.getString("GUI.86"), SwingConstants.LEFT);
+		lblTransports = new JLabel("Transportschiffe", SwingConstants.LEFT);
 		lblTransports.setForeground(clrStandard);
 		lblTransports.setFont(fntStandard);
 		addComponent(pnlNavalUnitNumbers, layout, lblTransports, 0, 2, 1, 1, 0, 0, new Insets(0, 0, 0, 5));
@@ -1341,7 +1337,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		pnlCountryPolicy.setBackground(clrBackground);
 		addComponent(pnlCountrySettings, layout, pnlCountryPolicy, 0, 0, 1, 1, 1, 1, new Insets(0, 0, 0, 0));
 
-		lblPolicyDate = new JLabel(Strings.getString("GUI.8"), SwingConstants.LEFT);
+		lblPolicyDate = new JLabel("Letzte Änderung (dd.mm.yyyy)", SwingConstants.LEFT);
 		lblPolicyDate.setForeground(clrStandard);
 		lblPolicyDate.setFont(fntStandard);
 		addComponent(pnlCountryPolicy, layout, lblPolicyDate, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
@@ -1374,7 +1370,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 
 		addComponent(pnlPolicyDate, layout, new JPanel(), 5, 0, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
 
-		lblAristocracy = new JLabel(Strings.getString("GUI.10"), SwingConstants.LEFT);
+		lblAristocracy = new JLabel("Aristrokratie", SwingConstants.LEFT);
 		lblAristocracy.setForeground(clrStandard);
 		lblAristocracy.setFont(fntStandard);
 		addComponent(pnlCountryPolicy, layout, lblAristocracy, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -1386,11 +1382,11 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		sldAristocracy.setPaintTicks(true);
 		sldAristocracy.setSnapToTicks(true);
 		sldAristocracy.setPaintLabels(true);
-		sldAristocracy.setToolTipText(Strings.getString("GUI.11"));
+		sldAristocracy.setToolTipText("Plutokratie - Aristrokratie");
 		addComponent(pnlCountryPolicy, layout, sldAristocracy, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblCentralization = new JLabel(Strings.getString("GUI.12"), SwingConstants.LEFT);
+		lblCentralization = new JLabel("Zentralisierung", SwingConstants.LEFT);
 		lblCentralization.setForeground(clrStandard);
 		lblCentralization.setFont(fntStandard);
 		addComponent(pnlCountryPolicy, layout, lblCentralization, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -1402,11 +1398,11 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		sldCentralization.setPaintTicks(true);
 		sldCentralization.setSnapToTicks(true);
 		sldCentralization.setPaintLabels(true);
-		sldCentralization.setToolTipText(Strings.getString("GUI.13"));
+		sldCentralization.setToolTipText("Dezentralisierung - Zentralisierung");
 		addComponent(pnlCountryPolicy, layout, sldCentralization, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblInnovative = new JLabel(Strings.getString("GUI.14"), SwingConstants.LEFT);
+		lblInnovative = new JLabel("Innovation/Tolleranz", SwingConstants.LEFT);
 		lblInnovative.setForeground(clrStandard);
 		lblInnovative.setFont(fntStandard);
 		addComponent(pnlCountryPolicy, layout, lblInnovative, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -1418,11 +1414,11 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		sldInnovative.setPaintTicks(true);
 		sldInnovative.setSnapToTicks(true);
 		sldInnovative.setPaintLabels(true);
-		sldInnovative.setToolTipText(Strings.getString("GUI.15"));
+		sldInnovative.setToolTipText("Intolleranz - Innovation/Tolleranz");
 		addComponent(pnlCountryPolicy, layout, sldInnovative, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblMercantilism = new JLabel(Strings.getString("GUI.16"), SwingConstants.LEFT);
+		lblMercantilism = new JLabel("Merkantilismus", SwingConstants.LEFT);
 		lblMercantilism.setForeground(clrStandard);
 		lblMercantilism.setFont(fntStandard);
 		addComponent(pnlCountryPolicy, layout, lblMercantilism, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -1434,11 +1430,11 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		sldMercantilism.setPaintTicks(true);
 		sldMercantilism.setSnapToTicks(true);
 		sldMercantilism.setPaintLabels(true);
-		sldMercantilism.setToolTipText(Strings.getString("GUI.17"));
+		sldMercantilism.setToolTipText("Freihandel - Merkantilismus");
 		addComponent(pnlCountryPolicy, layout, sldMercantilism, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblOffensive = new JLabel(Strings.getString("GUI.18"), SwingConstants.LEFT);
+		lblOffensive = new JLabel("Offensiv (militärisch)", SwingConstants.LEFT);
 		lblOffensive.setForeground(clrStandard);
 		lblOffensive.setFont(fntStandard);
 		addComponent(pnlCountryPolicy, layout, lblOffensive, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -1450,11 +1446,11 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		sldOffensive.setPaintTicks(true);
 		sldOffensive.setSnapToTicks(true);
 		sldOffensive.setPaintLabels(true);
-		sldOffensive.setToolTipText(Strings.getString("GUI.19"));
+		sldOffensive.setToolTipText("Defensiv - Offensiv (militärisch)");
 		addComponent(pnlCountryPolicy, layout, sldOffensive, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblLand = new JLabel(Strings.getString("GUI.20"), SwingConstants.LEFT);
+		lblLand = new JLabel("Land (militärisch)", SwingConstants.LEFT);
 		lblLand.setForeground(clrStandard);
 		lblLand.setFont(fntStandard);
 		addComponent(pnlCountryPolicy, layout, lblLand, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -1466,11 +1462,11 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		sldLand.setPaintTicks(true);
 		sldLand.setSnapToTicks(true);
 		sldLand.setPaintLabels(true);
-		sldLand.setToolTipText(Strings.getString("GUI.21"));
+		sldLand.setToolTipText("See - Land (militärisch)");
 		addComponent(pnlCountryPolicy, layout, sldLand, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblQuality = new JLabel(Strings.getString("GUI.22"), SwingConstants.LEFT);
+		lblQuality = new JLabel("Qualität (militärisch)", SwingConstants.LEFT);
 		lblQuality.setForeground(clrStandard);
 		lblQuality.setFont(fntStandard);
 		addComponent(pnlCountryPolicy, layout, lblQuality, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -1482,11 +1478,11 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		sldQuality.setPaintTicks(true);
 		sldQuality.setSnapToTicks(true);
 		sldQuality.setPaintLabels(true);
-		sldQuality.setToolTipText(Strings.getString("GUI.23"));
+		sldQuality.setToolTipText("Quantität - Qualität (militärisch)");
 		addComponent(pnlCountryPolicy, layout, sldQuality, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
-		lblSerfdom = new JLabel(Strings.getString("GUI.24"), SwingConstants.LEFT);
+		lblSerfdom = new JLabel("Leibeigenschaft", SwingConstants.LEFT);
 		lblSerfdom.setForeground(clrStandard);
 		lblSerfdom.setFont(fntStandard);
 		addComponent(pnlCountryPolicy, layout, lblSerfdom, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
@@ -1498,7 +1494,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		sldSerfdom.setPaintTicks(true);
 		sldSerfdom.setSnapToTicks(true);
 		sldSerfdom.setPaintLabels(true);
-		sldSerfdom.setToolTipText(Strings.getString("GUI.25"));
+		sldSerfdom.setToolTipText("Freie Bürger - Leibeigenschaft");
 		addComponent(pnlCountryPolicy, layout, sldSerfdom, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
 		y++;
 
@@ -1572,11 +1568,11 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 
 		if (e.getSource() == cbxCategory) {
 
-			String category0 = Strings.getString("Category.1");
-			String category1 = Strings.getString("Category.2");
-			String category2 = Strings.getString("Category.3");
-			String category3 = Strings.getString("Category.4");
-			String category4 = Strings.getString("Category.5");
+			String category0 = "Allgemein";
+			String category1 = "Politik";
+			String category2 = "Technologie/Verhalten";
+			String category3 = "Diplomatie";
+			String category4 = "Einheiten";
 
 			String item = cbxCategory.getSelectedItem().toString();
 
