@@ -29,7 +29,7 @@ import map.MapPanel;
 
 public class SelectionGUI implements ActionListener {
 
-	JFrame frame;
+	static JFrame frame;
 	GridBagLayout layout = new GridBagLayout();
 	JPanel panel, pnlLoading;
 	JLabel lblGamePath, lblMod, lblLanguage, lblScenario, lblLoading, lblLoadingAnimation;
@@ -109,11 +109,12 @@ public class SelectionGUI implements ActionListener {
 					frontend = ImageIO.read(SelectionGUI.class.getResource("/frontend.png"));
 					backend = ImageIO.read(SelectionGUI.class.getResource("/backend.png"));
 
-				} catch (IOException e) {
+				} catch (Exception e) {
 
 					JOptionPane.showMessageDialog(null,
 							"Kartenbilder konnten nicht geladen werden! Programm wird beendet...", "Fehler aufgetreten",
 							JOptionPane.ERROR_MESSAGE);
+					System.exit(1);
 				}
 
 				mapPanel = new MapPanel(frontend, backend);
@@ -302,6 +303,11 @@ public class SelectionGUI implements ActionListener {
 				System.exit(1);
 			}
 		}
+	}
+	
+	public static void disposeFrame() {
+		
+		frame.dispose();
 	}
 
 	public static String getGamePath() {
