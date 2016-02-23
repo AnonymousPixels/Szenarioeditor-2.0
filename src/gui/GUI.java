@@ -1151,6 +1151,19 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		y++;
 
 		addComponent(pnlCountryDiplomacy, layout, new JPanel(), 0, y, 1, 1, 1, 1, new Insets(0, 0, 0, 0));
+		
+		for(Component component : pnlCountryDiplomacy.getComponents()) 
+			component.setEnabled(false);
+		for(Component component : pnlDiplomacyRelation.getComponents()) 
+			component.setEnabled(false);
+		for(Component component : pnlIndependence.getComponents()) 
+			component.setEnabled(false);
+		for(Component component : pnlCasusBelli.getComponents()) 
+			component.setEnabled(false);
+		for(Component component : pnlWarned.getComponents()) 
+			component.setEnabled(false);
+		for(Component component : pnlPeace.getComponents()) 
+			component.setEnabled(false);
 	}
 
 	void createPnlCountryUnits() {
@@ -1343,6 +1356,17 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		addComponent(pnlNavalUnitNumbers, layout, txfTransports, 2, 2, 1, 1, 0, 0, new Insets(0, 0, 0, 0));
 
 		addComponent(pnlCountryUnits, layout, new JPanel(), 0, y, 1, 1, 1, 1, new Insets(0, 0, 0, 0));
+		
+		for (Component component : pnlCountryUnits.getComponents()) 
+			component.setEnabled(false);
+		for (Component component : pnlUnits.getComponents()) 
+			component.setEnabled(false);
+		for (Component component : pnlNavalUnitNumbers.getComponents()) 
+			component.setEnabled(false);
+		for (Component component : pnlNavalUnits.getComponents()) 
+			component.setEnabled(false);
+		for (Component component : pnlUnitNumbers.getComponents()) 
+			component.setEnabled(false);
 	}
 
 	void createPnlCountryPolicy() {
