@@ -8,11 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,7 +22,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import main.Main;
-import map.MapPanel;
 
 public class SelectionGUI implements ActionListener {
 
@@ -37,13 +33,9 @@ public class SelectionGUI implements ActionListener {
 	JButton btnChooseGamePath, btnGamePath, btnMod, btnFinish;
 	JComboBox<String> cbxMod, cbxLanguage, cbxScenario;
 
-	static MapPanel mapPanel;
-
 	static String gamePath, mod, language, scenario;
 
 	public SelectionGUI() {
-
-		preLoadMap();
 
 		frame = new JFrame("FTG Szenario Editor | v2.0");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,33 +86,6 @@ public class SelectionGUI implements ActionListener {
 		gbc.insets = insets;
 		gbl.setConstraints(c, gbc);
 		cont.add(c);
-	}
-
-	void preLoadMap() {
-
-		Thread loadMap = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-
-				BufferedImage frontend = null, backend = null;
-				try {
-
-					frontend = ImageIO.read(SelectionGUI.class.getResource("/frontend.png"));
-					backend = ImageIO.read(SelectionGUI.class.getResource("/backend.png"));
-
-				} catch (Exception e) {
-
-					JOptionPane.showMessageDialog(null,
-							"Kartenbilder konnten nicht geladen werden! Programm wird beendet...", "Fehler aufgetreten",
-							JOptionPane.ERROR_MESSAGE);
-					System.exit(1);
-				}
-
-				mapPanel = new MapPanel(frontend, backend);
-			}
-		});
-		loadMap.start();
 	}
 
 	@Override
@@ -306,7 +271,6 @@ public class SelectionGUI implements ActionListener {
 	}
 	
 	public static void disposeFrame() {
-		
 		frame.dispose();
 	}
 
@@ -324,9 +288,5 @@ public class SelectionGUI implements ActionListener {
 
 	public static String getMod() {
 		return mod;
-	}
-
-	public static MapPanel getMapPanel() {
-		return mapPanel;
 	}
 }

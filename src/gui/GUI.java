@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -57,7 +58,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 	// TODO Überarbeiten...
 
 	JFrame frame;
-	GridBagLayout layout;
+	GridBagLayout layout = new GridBagLayout();
 	JPanel panel, pnlMap, pnlOther, pnlGeneral, pnlProvinces, pnlCountries, pnlCountrySettings, pnlCountry,
 			pnlCountryPolicy, pnlPolicyDate, pnlCountryGeneral, pnlCountryTechnology, pnlCountryDiplomacy,
 			pnlCountryUnits, pnlTechnology, pnlProvincesControl, pnlColonialAttempts, pnlCountryGeneralBooleans,
@@ -106,9 +107,9 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 	Font fntStandard = new Font("Verdana", 0, 12);
 	static String selectedCountryItem;
 	// TODO change scenarioFilePath
-	String[] months = {"Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"},
-			CountryCategories = { "Allgemein", "Politik",
-					"Technologie/Verhalten", "Diplomatie", "Einheiten" },
+	String[] months = { "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober",
+			"November", "Dezember" },
+			CountryCategories = { "Allgemein", "Politik", "Technologie/Verhalten", "Diplomatie", "Einheiten" },
 			CasusBelliTypes = { "permanent", "temporär" },
 			climate = { "arctic", "tropical", "temperate", "ncontinental", "scontinental", "tundra", "desertic" },
 			days = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18",
@@ -212,6 +213,22 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		// mapPanel = new MapPanel(imgFrontend, imgBackend, LoadMapFile
 		// .LoadFile(new
 		// File(GUI.class.getResource("/affiliation.txt").getPath())));
+
+		BufferedImage frontend = null, backend = null;
+		try {
+
+			frontend = ImageIO.read(SelectionGUI.class.getResource("/frontend.png"));
+			backend = ImageIO.read(SelectionGUI.class.getResource("/backend.png"));
+
+		} catch (Exception e) {
+
+			JOptionPane.showMessageDialog(null, "Kartenbilder konnten nicht geladen werden! Programm wird beendet...",
+					"Fehler aufgetreten", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+
+		mapPanel = new MapPanel(frontend, backend);
+
 		mapPanel.addMapListener(this);
 
 		// } catch (IOException e) {
