@@ -42,7 +42,7 @@ public class GameFiles {
 	public static String[] loadTags(String findWhat)
 			throws FileNotFoundException, IOException {
 
-		String path2 = gamePath + "Db\\Map\\geography.txt";
+		String path2 = gamePath + "\\Db\\Map\\geography.txt";
 
 		BufferedReader stream = new BufferedReader(new FileReader(path2));
 		String text = "";
@@ -153,10 +153,13 @@ public class GameFiles {
 
 			String value = (String) (((HashMap<String, Object>) pair.getValue())
 					.get("city"));
+			System.out.println(pair.getKey());
 			System.out.println(value);
-			value = value.replaceAll(" ", "");
-			System.out.println(value);
-			it.remove(); // avoids a ConcurrentModificationException
+			if (value != null) {
+				value = value.replaceAll(" ", "");
+				System.out.println(value);
+				it.remove(); // avoids a ConcurrentModificationException
+			}
 		}
 
 		return null;
@@ -316,7 +319,7 @@ public class GameFiles {
 		int length = 0;
 
 		FileReader r = new FileReader(new File(gamePath
-				+ "Db\\Map\\terrains.txt"));
+				+ "\\Db\\Map\\terrains.txt"));
 		BufferedReader br = new BufferedReader(r);
 		String line;
 		while ((line = br.readLine()) != null)
@@ -327,7 +330,7 @@ public class GameFiles {
 		r.close();
 		r = null;
 		br = null;
-		r = new FileReader(new File(gamePath + "Db\\Map\\terrains.txt"));
+		r = new FileReader(new File(gamePath + "\\Db\\Map\\terrains.txt"));
 		br = new BufferedReader(r);
 		String[] cultures = new String[length];
 		int i = 0;

@@ -35,7 +35,7 @@ public class MapPanel extends JPanel implements MouseListener,
 	int newHeight, newWidth;
 	private List<IMapEventListener> listeners;
 
-	public MapPanel(BufferedImage Frontend, BufferedImage Backend) {
+	public MapPanel(BufferedImage Frontend, BufferedImage Backend, Map map) {
 		super();
 		this.setOpaque(true);
 		this.setLayout(null);
@@ -57,6 +57,7 @@ public class MapPanel extends JPanel implements MouseListener,
 		this.addMouseWheelListener(this);
 		mouseWheelMoved(new MouseWheelEvent(this, 1, 1, 1, 1, 1, 0, false, 0,
 				0, 0));
+		map2 = map;
 
 	}
 

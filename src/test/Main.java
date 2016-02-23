@@ -45,7 +45,13 @@ public class Main implements map.IMapEventListener {
 		MapPanel map = new MapPanel(
 				img,
 				img2,
-				game.loadMap("C:\\Users\\Maximilian\\GitHub\\ForTheGlory-Scenarioeditor\\ForTheGlory-Scenarioeditor\\res\\affiliation.txt"));
+				GameFiles.loadAffilation(
+						io.Settings
+								.getSettings(
+										"C:\\Program Files (x86)\\Steam\\SteamApps\\common\\For The Glory",
+										"English",
+										"C:\\Program Files (x86)\\Steam\\SteamApps\\common\\For The Glory\\Scenarios\\1419 - The Grand Campaign.eeg"),
+						img2));
 		JFrame frame = new JFrame("Test MapPanel");
 		frame.setBounds(10, 10, 500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -1,44 +1,29 @@
 package gui;
 
-import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
-
-import java.awt.GridBagConstraints;
-
-import javax.swing.JTextPane;
-
-import java.awt.Insets;
-
-import javax.swing.border.TitledBorder;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
-import javax.swing.JEditorPane;
-import javax.swing.JButton;
-import javax.swing.UIManager;
-
-import java.awt.Color;
-
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowEvent;
-
-import javax.swing.DefaultComboBoxModel;
-import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 public class WarFrame extends JFrame {
 
@@ -49,6 +34,7 @@ public class WarFrame extends JFrame {
 			comboBox_5;
 	private JEditorPane editorPane, editorPane_1;
 	int type, id;
+	private static ComboBoxModel countries;
 
 	/**
 	 * Launch the application.
@@ -235,6 +221,7 @@ public class WarFrame extends JFrame {
 		scrollPane.setViewportView(editorPane);
 
 		comboBox_4 = new JComboBox();
+		comboBox_4.setModel(countries);
 		GridBagConstraints gbc_comboBox_4 = new GridBagConstraints();
 		gbc_comboBox_4.insets = new Insets(0, 0, 0, 5);
 		gbc_comboBox_4.fill = GridBagConstraints.HORIZONTAL;
@@ -282,6 +269,7 @@ public class WarFrame extends JFrame {
 		scrollPane_1.setViewportView(editorPane_1);
 
 		comboBox_5 = new JComboBox();
+		comboBox_5.setModel(countries);
 		GridBagConstraints gbc_comboBox_5 = new GridBagConstraints();
 		gbc_comboBox_5.insets = new Insets(0, 0, 0, 5);
 		gbc_comboBox_5.fill = GridBagConstraints.HORIZONTAL;
@@ -328,9 +316,8 @@ public class WarFrame extends JFrame {
 						+ (id + 2)
 						+ " }\n    type = war\n    expirydate = { year = 0 month = january day = 0 }\n    participant = { "
 						+ editorPane.getText() + " }\n}";
-				gui.GlobalDataPanel.jepWar
-						.setText(gui.GlobalDataPanel.jepWar
-								.getText() + "\n" + result);
+				gui.GlobalDataPanel.jepWar.setText(gui.GlobalDataPanel.jepWar
+						.getText() + "\n" + result);
 				close();
 
 			}
@@ -348,5 +335,23 @@ public class WarFrame extends JFrame {
 
 	private void close() {
 		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+	}
+
+	public void setData(Map map) {
+		int i = 0;
+		Iterator it = map.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			i++;
+			it.remove(); // avoids a ConcurrentModificationException
+		}
+		String[] countries = new String[i];
+		it = map.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			countries[i] = (String) pair.getKey();
+			it.remove(); // avoids a ConcurrentModificationException
+		}
+		WarFrame.countries = new DefaultComboBoxModel(countries);
 	}
 }

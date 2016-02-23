@@ -227,7 +227,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 			System.exit(1);
 		}
 
-		mapPanel = new MapPanel(frontend, backend);
+		mapPanel = new MapPanel(frontend, backend, GameFiles.loadAffilation(dataMap, backend));
 
 		mapPanel.addMapListener(this);
 

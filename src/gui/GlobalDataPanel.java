@@ -355,8 +355,8 @@ public class GlobalDataPanel extends JPanel implements ActionListener {
 				break;
 			default:
 
-//				System.out
-//						.println("Program failure ahead! Some stupid programmer made a heavy mistake!");
+				// System.out
+				// .println("Program failure ahead! Some stupid programmer made a heavy mistake!");
 				break;
 			}
 
@@ -386,8 +386,8 @@ public class GlobalDataPanel extends JPanel implements ActionListener {
 				break;
 			default:
 
-//				System.out
-//						.println("Program failure ahead! A stupid programmer made a heavy mistake!");
+				// System.out
+				// .println("Program failure ahead! A stupid programmer made a heavy mistake!");
 				break;
 			}
 
@@ -395,6 +395,7 @@ public class GlobalDataPanel extends JPanel implements ActionListener {
 
 		if (e.getSource() == btnAdd3) {
 			WarFrame war = new WarFrame();
+			war.setData(map);
 			war.setVisible(true);
 
 		}
