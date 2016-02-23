@@ -23,19 +23,19 @@ public class SettingReader {
 
 	public SettingReader(String gamepath, String language, HashMap<String, Object> hashmap, String scenariofilepath)
 			throws IOException {
-		
+
 		System.out.println("Scenariofilepath: " + scenariofilepath);
 		System.out.println("Gamefilepath: " + gamepath);
-		System.out.println("Combinated: " + gamepath + scenariofilepath);
-		
 		getCountrySettings(gamepath + "//Db//countries.txt");
 		getProvinces(gamepath + "//Db//Map//provinces.txt");
 		getLocalisation(gamepath + "//Localisation//" + language + "//countries.csv", hashmap);
 		getCultures(gamepath + "//Db//cultures.txt");
 		getTechgroups(gamepath + "//Db//Technologies//techgroups.txt");
 		getReligion(gamepath + "//Db//Religions//religions.txt");
+
+//		getScenario(scenariofilepath);
 		
-//		getScenario(gamepath + scenariofilepath);
+		System.out.println("Finished reading class - Johannes");
 
 	}
 

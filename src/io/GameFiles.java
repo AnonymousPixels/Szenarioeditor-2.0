@@ -24,7 +24,8 @@ public class GameFiles {
 	static String gamePath;
 
 	public GameFiles(String path) {
-		gamePath = path;
+		//TODO ADDED BY JOHANNES
+		gamePath = path + "\\";
 	}
 
 	/**
