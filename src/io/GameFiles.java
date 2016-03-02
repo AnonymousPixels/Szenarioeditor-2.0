@@ -24,7 +24,7 @@ public class GameFiles {
 	static String gamePath;
 
 	public GameFiles(String path) {
-		//TODO ADDED BY JOHANNES
+		// TODO ADDED BY JOHANNES
 		gamePath = path + "\\";
 	}
 
@@ -152,15 +152,14 @@ public class GameFiles {
 			Map.Entry pair = (Map.Entry) it.next();
 			System.out.println(pair.getKey());
 
-			String value = (String) (((HashMap<String, Object>) pair.getValue())
-					.get("city"));
-			System.out.println(pair.getKey());
+			String value = (String) ((HashMap<String, Object>) ((HashMap<String, Object>) map
+					.get("provincedata")).get(pair.getKey())).get("city");
 			System.out.println(value);
-			if (value != null) {
-				value = value.replaceAll(" ", "");
-				System.out.println(value);
-				it.remove(); // avoids a ConcurrentModificationException
-			}
+			int x = Integer.parseInt(value.substring(value.indexOf('='),
+					value.indexOf('y') - 1));
+			int y = Integer.parseInt(value.substring(value.lastIndexOf('='),
+					value.indexOf('}') - 1));
+			it.remove();
 		}
 
 		return null;
