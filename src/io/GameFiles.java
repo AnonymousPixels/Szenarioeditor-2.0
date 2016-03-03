@@ -159,6 +159,7 @@ public class GameFiles {
 					value.indexOf('y') - 1));
 			int y = Integer.parseInt(value.substring(value.lastIndexOf('='),
 					value.indexOf('}') - 1));
+			Color color = new Color(biBackend.getRGB(x, y));
 			it.remove();
 		}
 
