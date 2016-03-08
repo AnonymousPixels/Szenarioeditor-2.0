@@ -35,7 +35,7 @@ public class SettingReader {
 
 		// getScenario(scenariofilepath);
 
-		System.out.println("Finished reading class - Johannes");
+		System.out.println("Finished reading data fils");
 
 	}
 
@@ -429,6 +429,7 @@ public class SettingReader {
 
 				if (input.contains(s) && s != null) {
 					String property = input.replaceAll(s + "=", "");
+
 					techgrouphashmap.put(s, property);
 
 				}
@@ -481,30 +482,32 @@ public class SettingReader {
 			if (input.contains("}")) {
 				brackets--;
 			}
-			if (!input.equals("") && input != null && input.trim().charAt(0) == '#') {
-			}
-			String[] checkFor = { "terrain", "sea_adjacency", "tolerance", "tp_negotiation", "efficiency", "ferocity",
-					"combat", "colonization_difficulty", "cot_modifier", "city_name", "goods", "income", "manpower",
-					"culture", "religion", "climate", "size_modifier", "terrain", "type", "area", "region", "continent",
-					"name", "id", "terrain1", "city", "terrain2", "terrain3", "terrain4", "river" };
-			for (String s : checkFor) {
+			if (!input.equals("") && input != null && input.trim().charAt(0) != '#') {
 
-				if (input.contains(s)) {
+				String[] checkFor = { "terrain", "sea_adjacency", "tolerance", "tp_negotiation", "efficiency",
+						"ferocity", "combat", "colonization_difficulty", "cot_modifier", "city_name", "goods", "income",
+						"manpower", "culture", "religion", "climate", "size_modifier", "terrain", "type", "area",
+						"region", "continent", "name", "id", "terrain1", "city", "terrain2", "terrain3", "terrain4",
+						"river" };
+				for (String s : checkFor) {
 
-					String property = input.replaceAll(s + "=", "");
+					if (input.contains(s)) {
 
-					provincehashmap.put(s, property);
-					if (s.contains("id") && property.length() <= 4) {
-						provincehashmap.clear();
-						id = property;
+						String property = input.replaceAll(s + "=", "");
+
+						provincehashmap.put(s, property);
+						if (s.contains("id") && property.length() <= 4) {
+							provincehashmap.clear();
+							id = property;
+						}
+
+					}
+
+					if (brackets == 0) {
+						provincesettinghashmap.put(id, provincehashmap.clone());
 					}
 
 				}
-
-				if (brackets == 0) {
-					provincesettinghashmap.put(id, provincehashmap.clone());
-				}
-
 			}
 
 		}

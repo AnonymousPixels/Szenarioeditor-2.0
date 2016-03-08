@@ -18,12 +18,13 @@ public class IOTestMain {
 		hash = io.Settings.getSettings("C://Program Files (x86)//Steam//steamapps//common//For The Glory", "German",
 				"1419 - The Grand Campaign.eeg");
 
-		for (int i = 1400; i < 1600; i++) {
+		for (int i = 0; i < 1614; i++) {
 			System.out.println(
 					((HashMap<String, Object>) ((HashMap<String, Object>) hash.get("provincedata")).get("" + i))
 							.get("city"));
 		}
 
+		
 		// System.out.println(
 		// "" + ((HashMap<String, Object>) ((HashMap<String, Object>)
 		// hash.get("provincedata")).get("1404"))
