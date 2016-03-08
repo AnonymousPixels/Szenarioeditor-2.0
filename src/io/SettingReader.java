@@ -35,7 +35,7 @@ public class SettingReader {
 
 		// getScenario(scenariofilepath);
 
-		System.out.println("Finished reading data fils");
+		System.out.println("Finished reading data files");
 
 	}
 

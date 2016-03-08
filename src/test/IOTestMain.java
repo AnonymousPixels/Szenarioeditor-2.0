@@ -25,19 +25,19 @@ public class IOTestMain {
 		}
 
 		
-		// System.out.println(
-		// "" + ((HashMap<String, Object>) ((HashMap<String, Object>)
-		// hash.get("provincedata")).get("1404"))
-		// .get("city"));
-		// // System.out.println("----------------------------");
-		// // for (String key : ((HashMap<String, Object>)
-		// // hash.get("culturedata")).keySet()) {
-		// // System.out.println(key + ((HashMap<String, Object>)
-		// // ((HashMap<String,
-		// // Object>) hash.get("culturedata"))
-		// // .get("culturedatatag")));
-		// //
-		// // }
+		 System.out.println(
+		 "" + ((HashMap<String, Object>) ((HashMap<String, Object>)
+		 hash.get("provincedata")).get("1404"))
+		 .get("city"));
+		 // System.out.println("----------------------------");
+		  for (String key : ((HashMap<String, Object>)
+		  hash.get("culturedata")).keySet()) {
+		  System.out.println(key + ((HashMap<String, Object>)
+		  ((HashMap<String,
+		  Object>) hash.get("culturedata"))
+		  .get("culturedatatag")));
+		 
+		  }
 
 		// new SaveSettings(hash);
 
