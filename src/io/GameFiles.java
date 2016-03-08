@@ -160,20 +160,22 @@ public class GameFiles {
 
 			if (value != null) {
 
-				int x = Integer.parseInt(value.substring(value.indexOf('='),
-						value.indexOf('y') - 1));
+				int x = Integer.parseInt(value.substring(
+						value.indexOf('=') + 1, value.indexOf('y')));
 				int y = Integer.parseInt(value.substring(
-						value.lastIndexOf('='), value.indexOf('}') - 1));
+						value.lastIndexOf('=') + 1, value.indexOf('}')));
 				Color color = new Color(biBackend.getRGB(x, y));
-
-				map2.put(color, (Integer) pair.getKey());
+				System.out.println(x + " " + y);
+				System.out.println(color.getRed() + " " + color.getGreen()
+						+ " " + color.getBlue());
+				map2.put(color, Integer.parseInt((String) pair.getKey()));
 
 			}
 
 			it.remove();
 		}
 
-		return null;
+		return map2;
 
 	}
 

@@ -38,6 +38,7 @@ public class TestAffliliation {
 						"English",
 						"C:\\Program Files (x86)\\Steam\\steamapps\\common\\For The Glory\\Scenarios\\1419 - The Grand Campaign.eeg");
 
-		io.GameFiles.loadAffilation(map, img);
+
+		 io.GameFiles.loadAffilation(map, img);
 	}
 }
