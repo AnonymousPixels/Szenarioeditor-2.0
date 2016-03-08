@@ -33,8 +33,8 @@ public class SettingReader {
 		getTechgroups(gamepath + "//Db//Technologies//techgroups.txt");
 		getReligion(gamepath + "//Db//Religions//religions.txt");
 
-//		getScenario(scenariofilepath);
-		
+		// getScenario(scenariofilepath);
+
 		System.out.println("Finished reading class - Johannes");
 
 	}
@@ -170,6 +170,7 @@ public class SettingReader {
 			if (brackets == 0 && varification != null && !varification.equals("")) {
 
 				scenarioeeghashmap.put(varification, scenariohashmap.clone());
+				scenariohashmap.clear();
 
 			}
 		}
@@ -511,6 +512,7 @@ public class SettingReader {
 
 				if (brackets == 0) {
 					provincesettinghashmap.put(id, provincehashmap.clone());
+					provincehashmap.clear();
 
 				}
 			}
