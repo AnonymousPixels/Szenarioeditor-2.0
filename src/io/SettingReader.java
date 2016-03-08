@@ -494,28 +494,19 @@ public class SettingReader {
 					String property = input.replaceAll(s + "=", "");
 
 					provincehashmap.put(s, property);
-
-					if (s.contains("id") && property.length() <= 4)
-						id = property;
-
-					if (brackets == 0) {
-						provincesettinghashmap.put(id, provincehashmap.clone());
-						provincehashmap.clear();
-					}
-
-					provincehashmap.put(s, property);
 					if (s.contains("id") && property.length() <= 4) {
-
+						provincehashmap.clear();
 						id = property;
 					}
+
 				}
 
 				if (brackets == 0) {
 					provincesettinghashmap.put(id, provincehashmap.clone());
-					provincehashmap.clear();
-
 				}
+
 			}
+
 		}
 
 		Settings.putInHashMap("provincedata", provincesettinghashmap.clone());
