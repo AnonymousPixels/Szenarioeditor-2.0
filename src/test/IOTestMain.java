@@ -13,29 +13,33 @@ public class IOTestMain {
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws IOException {
 
-		// HashMap<String, Object> hash = new HashMap<String, Object>();
-		//
-		// hash = io.Settings.getSettings("C://Program Files
-		// (x86)//Steam//steamapps//common//For The Glory", "German",
-		// "1419 - The Grand Campaign.eeg");
-		//
-		// // System.out.println(((HashMap<String, Object>) ((HashMap<String,
-		// // Object>) hash.get("localisationdata")).get("USA")).get("name"));
-		//
-		// System.out.println((HashMap<String, Object>)
-		// hash.get("culturedata"));
+		HashMap<String, Object> hash = new HashMap<String, Object>();
+
+		hash = io.Settings.getSettings("C://Program Files (x86)//Steam//steamapps//common//For The Glory", "German",
+				"1419 - The Grand Campaign.eeg");
+
+		for (int i = 0; i < 10; i++) {
+			System.out.println(
+					((HashMap<String, Object>) ((HashMap<String, Object>) hash.get("provincedata")).get("" + i))
+							.get("city"));
+		}
+		
+		System.out.println(
+				((HashMap<String, Object>) ((HashMap<String, Object>) hash.get("provincedata")).get("1615"))
+						.get("city"));
 		// System.out.println("----------------------------");
 		// for (String key : ((HashMap<String, Object>)
 		// hash.get("culturedata")).keySet()) {
-		// System.out.println(key + ((HashMap<String, Object>) ((HashMap<String,
+		// System.out.println(key + ((HashMap<String, Object>)
+		// ((HashMap<String,
 		// Object>) hash.get("culturedata"))
 		// .get("culturedatatag")));
 		//
 		// }
-		//
-		// // new SaveSettings(hash);
 
-		read();
+		// new SaveSettings(hash);
+
+		// read();
 
 	}
 
@@ -69,7 +73,6 @@ public class IOTestMain {
 
 		for (String input : lines) {
 
-			
 			//
 			// if (brackets >= 1) {
 			// String[] checkFor = { "name", "startyear", "endyear", "startdate"
@@ -117,7 +120,7 @@ public class IOTestMain {
 			}
 
 		}
-//		io.Settings.putInHashMap("scenariodata", scenarioeeghashmap.clone());
+		// io.Settings.putInHashMap("scenariodata", scenarioeeghashmap.clone());
 
 	}
 
