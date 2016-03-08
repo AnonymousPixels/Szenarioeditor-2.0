@@ -61,9 +61,29 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 	GridBagLayout layout = new GridBagLayout();
 	JPanel panel, pnlMap, pnlOther, pnlGeneral, pnlProvinces, pnlCountries, pnlCountrySettings, pnlCountry,
 			pnlCountryPolicy, pnlPolicyDate, pnlCountryGeneral, pnlCountryTechnology, pnlCountryDiplomacy,
-			pnlCountryUnits, pnlTechnology, pnlProvincesControl, pnlColonialAttempts, pnlCountryGeneralBooleans,
-			pnlCountryGeneralTxf, pnlDiplomacyRelation, pnlCasusBelli, pnlWarned, pnlIndependence, pnlPeace, pnlUnits,
-			pnlUnitNumbers, pnlNavalUnits, pnlNavalUnitNumbers;
+			pnlCountryUnits, pnlTechnology, pnlProvincesControl, pnlColonialAttempts;
+
+	static JPanel pnlCountryGeneralBooleans;
+
+	JPanel pnlCountryGeneralTxf;
+
+	JPanel pnlDiplomacyRelation;
+
+	JPanel pnlCasusBelli;
+
+	JPanel pnlWarned;
+
+	JPanel pnlIndependence;
+
+	JPanel pnlPeace;
+
+	JPanel pnlUnits;
+
+	JPanel pnlUnitNumbers;
+
+	JPanel pnlNavalUnits;
+
+	JPanel pnlNavalUnitNumbers;
 	JTabbedPane tabbedPane;
 	JSplitPane splitPane;
 	static JComboBox<String> cbxCountry, cbxCategory, cbxPolicyDateMonth, cbxTechnologyGroup, cbxAi, cbxMonarchtable,
@@ -289,7 +309,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 	}
 
 	@SuppressWarnings("unchecked")
-	static void setData(HashMap<String, Object> map) {
+	void setData(HashMap<String, Object> map) {
 
 		// Iterator<Entry<String, Object>> it = map.entrySet().iterator();
 		// while (it.hasNext()) {
@@ -311,7 +331,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 	}
 
 	@SuppressWarnings("unchecked")
-	static void setValues(HashMap<String, Object> map) {
+	void setValues(HashMap<String, Object> map) {
 
 		sldAristocracy.setValue(
 				Integer.parseInt((String) ((HashMap<String, Object>) ((HashMap<String, Object>) map.get("countrydata"))
@@ -338,31 +358,34 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 				Integer.parseInt((String) ((HashMap<String, Object>) ((HashMap<String, Object>) map.get("countrydata"))
 						.get(cbxCountry.getSelectedItem())).get("serfdom")));
 
-		// TODO JOHANNES ADDDES SOMETHING BELOW
-		cbxCulture.removeAllItems();
-		String ToSplit = "";
-		for (String key : ((HashMap<String, Object>) map.get("culturedata")).keySet()) {
-			ToSplit = key + "," + ToSplit;
-		}
-
-		String[] ArrayToSort = ToSplit.split(",");
-		Arrays.sort(ArrayToSort);
-		for (String s : ArrayToSort)
-			if (!s.equals(""))
-				cbxCulture.addItem(s);
-
-		cbxReligion.removeAllItems();
-		ToSplit = "";
-		for (String key : ((HashMap<String, Object>) map.get("religiondata")).keySet()) {
-			ToSplit = key + "," + ToSplit;
-		}
-
-		ArrayToSort = ToSplit.split(",");
-		Arrays.sort(ArrayToSort);
-		for (String s : ArrayToSort)
-			if (!s.equals(""))
-				cbxReligion.addItem(s);
-
+		// TODO JOHANNES ADDDES SOMETHING BELOW || Remove: //
+//		cbxCulture.removeAllItems();
+//		String ToSplit = "";
+//		for (String key : ((HashMap<String, Object>) map.get("culturedata")).keySet()) {
+//			ToSplit = key + "," + ToSplit;
+//		}
+//
+//		String[] ArrayToSort = ToSplit.split(",");
+//		Arrays.sort(ArrayToSort);
+//		for (String s : ArrayToSort)
+//			if (!s.equals(""))
+//				cbxCulture.addItem(s);
+//
+//		cbxReligion.removeAllItems();
+//		ToSplit = "";
+//		for (String key : ((HashMap<String, Object>) map.get("religiondata")).keySet()) {
+//			ToSplit = key + "," + ToSplit;
+//		}
+//
+//		ArrayToSort = ToSplit.split(",");
+//		Arrays.sort(ArrayToSort);
+//		for (String s : ArrayToSort)
+//			if (!s.equals(""))
+//				cbxReligion.addItem(s);
+		
+		//====================================
+		
+//		rbnColonialnationTrue
 	}
 
 	@SuppressWarnings("unchecked")
@@ -536,84 +559,86 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		pnlCountryGeneral.setBackground(clrBackground);
 		addComponent(pnlCountrySettings, layout, pnlCountryGeneral, 0, 0, 1, 1, 1, 1, new Insets(0, 0, 0, 0));
 
-		pnlProvincesControl = new JPanel();
-		pnlProvincesControl.setLayout(layout);
-		pnlProvincesControl.setBackground(clrBackground);
-		pnlProvincesControl.setBorder(BorderFactory.createTitledBorder("Provinzkontrolle"));
-		addComponent(pnlCountryGeneral, layout, pnlProvincesControl, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
-		y++;
-
-		rbnOwnProvinces = new JRadioButton("in Besitz");
-		rbnOwnProvinces.addChangeListener(this);
-		rbnOwnProvinces.setFont(fntStandard);
-		addComponent(pnlProvincesControl, layout, rbnOwnProvinces, 0, 0, 1, 1, 0, 0, new Insets(5, 5, 5, 5));
-
-		rbnControlledProvinces = new JRadioButton("kontrolliert");
-		rbnControlledProvinces.addChangeListener(this);
-		rbnControlledProvinces.setFont(fntStandard);
-		addComponent(pnlProvincesControl, layout, rbnControlledProvinces, 1, 0, 1, 1, 0, 0, new Insets(5, 0, 5, 5));
-
-		rbnNationalProvinces = new JRadioButton("national");
-		rbnNationalProvinces.addChangeListener(this);
-		rbnNationalProvinces.setFont(fntStandard);
-		addComponent(pnlProvincesControl, layout, rbnNationalProvinces, 0, 1, 1, 1, 0, 0, new Insets(0, 5, 5, 5));
-
-		rbnKnownProvinces = new JRadioButton("bekannt");
-		rbnKnownProvinces.addChangeListener(this);
-		rbnKnownProvinces.setFont(fntStandard);
-		addComponent(pnlProvincesControl, layout, rbnKnownProvinces, 1, 1, 1, 1, 0, 0, new Insets(0, 0, 5, 5));
-
-		grpProvinces = new ButtonGroup();
-		grpProvinces.add(rbnOwnProvinces);
-		grpProvinces.add(rbnControlledProvinces);
-		grpProvinces.add(rbnNationalProvinces);
-		grpProvinces.add(rbnKnownProvinces);
-
-		lblSelectedProvince = new JLabel("Provinz", SwingConstants.LEFT);
-		lblSelectedProvince.setForeground(clrStandard);
-		lblSelectedProvince.setFont(fntStandard);
-		addComponent(pnlProvincesControl, layout, lblSelectedProvince, 0, 2, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
-
-		cbxSelectedProvince = new JComboBox<String>();
-		cbxSelectedProvince.addActionListener(this);
-		addComponent(pnlProvincesControl, layout, cbxSelectedProvince, 0, 3, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
-
-		chbMajorProvince = new JCheckBox("Darlehenshöhe");
-		chbMajorProvince.setSelected(false);
-		chbMajorProvince.setForeground(clrStandard);
-		chbMajorProvince.setFont(fntStandard);
-		addComponent(pnlProvincesControl, layout, chbMajorProvince, 0, 4, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
-
-		lblCopy = new JLabel("Kopie von", SwingConstants.LEFT);
-		lblCopy.setForeground(clrStandard);
-		lblCopy.setFont(fntStandard);
-		addComponent(pnlProvincesControl, layout, lblCopy, 0, 5, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
-
-		cbxCopy = new JComboBox<String>();
-		cbxCopy.addActionListener(this);
-		addComponent(pnlProvincesControl, layout, cbxCopy, 0, 6, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
-
-		lblCulture = new JLabel("Kultur", SwingConstants.LEFT);
-		lblCulture.setForeground(clrStandard);
-		lblCulture.setFont(fntStandard);
-		addComponent(pnlCountryGeneral, layout, lblCulture, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
-		y++;
-
-		cbxCulture = new JComboBox<String>();
-		cbxCulture.addActionListener(this);
-		addComponent(pnlCountryGeneral, layout, cbxCulture, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
-		y++;
-
-		lblReligion = new JLabel("Religion", SwingConstants.LEFT);
-		lblReligion.setForeground(clrStandard);
-		lblReligion.setFont(fntStandard);
-		addComponent(pnlCountryGeneral, layout, lblReligion, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
-		y++;
-
-		cbxReligion = new JComboBox<String>();
-		cbxReligion.addActionListener(this);
-		addComponent(pnlCountryGeneral, layout, cbxReligion, 0, y, 1, 1, 1, 0, new Insets(0, 5, 10, 5));
-		y++;
+//		pnlProvincesControl = new JPanel();
+//		pnlProvincesControl.setLayout(layout);
+//		pnlProvincesControl.setBackground(clrBackground);
+//		pnlProvincesControl.setBorder(BorderFactory.createTitledBorder("Provinzkontrolle"));
+//		addComponent(pnlCountryGeneral, layout, pnlProvincesControl, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
+//		y++;
+//
+//		rbnOwnProvinces = new JRadioButton("in Besitz");
+//		rbnOwnProvinces.addChangeListener(this);
+//		rbnOwnProvinces.setFont(fntStandard);
+//		addComponent(pnlProvincesControl, layout, rbnOwnProvinces, 0, 0, 1, 1, 0, 0, new Insets(5, 5, 5, 5));
+//
+//		rbnControlledProvinces = new JRadioButton("kontrolliert");
+//		rbnControlledProvinces.addChangeListener(this);
+//		rbnControlledProvinces.setFont(fntStandard);
+//		addComponent(pnlProvincesControl, layout, rbnControlledProvinces, 1, 0, 1, 1, 0, 0, new Insets(5, 0, 5, 5));
+//
+//		rbnNationalProvinces = new JRadioButton("national");
+//		rbnNationalProvinces.addChangeListener(this);
+//		rbnNationalProvinces.setFont(fntStandard);
+//		addComponent(pnlProvincesControl, layout, rbnNationalProvinces, 0, 1, 1, 1, 0, 0, new Insets(0, 5, 5, 5));
+//
+//		rbnKnownProvinces = new JRadioButton("bekannt");
+//		rbnKnownProvinces.addChangeListener(this);
+//		rbnKnownProvinces.setFont(fntStandard);
+//		addComponent(pnlProvincesControl, layout, rbnKnownProvinces, 1, 1, 1, 1, 0, 0, new Insets(0, 0, 5, 5));
+//
+//		grpProvinces = new ButtonGroup();
+//		grpProvinces.add(rbnOwnProvinces);
+//		grpProvinces.add(rbnControlledProvinces);
+//		grpProvinces.add(rbnNationalProvinces);
+//		grpProvinces.add(rbnKnownProvinces);
+//
+//		lblSelectedProvince = new JLabel("Provinz", SwingConstants.LEFT);
+//		lblSelectedProvince.setForeground(clrStandard);
+//		lblSelectedProvince.setFont(fntStandard);
+//		addComponent(pnlProvincesControl, layout, lblSelectedProvince, 0, 2, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
+//
+//		cbxSelectedProvince = new JComboBox<String>();
+//		cbxSelectedProvince.addActionListener(this);
+//		addComponent(pnlProvincesControl, layout, cbxSelectedProvince, 0, 3, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
+//
+//		chbMajorProvince = new JCheckBox("Darlehenshöhe");
+//		chbMajorProvince.setSelected(false);
+//		chbMajorProvince.setForeground(clrStandard);
+//		chbMajorProvince.setFont(fntStandard);
+//		addComponent(pnlProvincesControl, layout, chbMajorProvince, 0, 4, 2, 1, 1, 0, new Insets(5, 5, 5, 5));
+//
+//		lblCopy = new JLabel("Kopie von", SwingConstants.LEFT);
+//		lblCopy.setForeground(clrStandard);
+//		lblCopy.setFont(fntStandard);
+//		addComponent(pnlProvincesControl, layout, lblCopy, 0, 5, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
+//
+//		cbxCopy = new JComboBox<String>();
+//		cbxCopy.addActionListener(this);
+//		addComponent(pnlProvincesControl, layout, cbxCopy, 0, 6, 2, 1, 1, 0, new Insets(0, 5, 5, 5));
+		
+//		lblCulture = new JLabel("Kultur", SwingConstants.LEFT);
+//		lblCulture.setForeground(clrStandard);
+//		lblCulture.setFont(fntStandard);
+//		addComponent(pnlCountryGeneral, layout, lblCulture, 0, y, 1, 1, 1, 0, new Insets(5, 5, 5, 5));
+//		y++;
+//
+//		cbxCulture = new JComboBox<String>();
+//		cbxCulture.addActionListener(this);
+//		addComponent(pnlCountryGeneral, layout, cbxCulture, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
+//		y++;
+//
+//		lblReligion = new JLabel("Religion", SwingConstants.LEFT);
+//		lblReligion.setForeground(clrStandard);
+//		lblReligion.setFont(fntStandard);
+//		addComponent(pnlCountryGeneral, layout, lblReligion, 0, y, 1, 1, 1, 0, new Insets(0, 5, 5, 5));
+//		y++;
+//
+//		cbxReligion = new JComboBox<String>();
+//		cbxReligion.addActionListener(this);
+//		addComponent(pnlCountryGeneral, layout, cbxReligion, 0, y, 1, 1, 1, 0, new Insets(0, 5, 10, 5));
+//		y++;
+		
+		//TODO
 
 		pnlCountryGeneralBooleans = new JPanel();
 		pnlCountryGeneralBooleans.setLayout(layout);

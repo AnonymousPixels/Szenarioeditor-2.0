@@ -144,7 +144,6 @@ public class SelectionGUI implements ActionListener {
 				addComponent(panel, layout, btnMod, 1, 5, 1, 1, 0, 0, new Insets(0, 5, 5, 5));
 
 				frame.pack();
-				frame.setLocationRelativeTo(null);
 
 			} catch (Exception ex) {
 
@@ -223,7 +222,6 @@ public class SelectionGUI implements ActionListener {
 				addComponent(panel, layout, btnFinish, 1, 10, 1, 1, 0, 0, new Insets(0, 5, 5, 5));
 
 				frame.pack();
-				frame.setLocationRelativeTo(null);
 
 			} catch (Exception ex) {
 
@@ -256,9 +254,14 @@ public class SelectionGUI implements ActionListener {
 				addComponent(pnlLoading, layout, lblLoading, 1, 0, 1, 1, 1, 0, new Insets(0, 0, 0, 0));
 
 				frame.pack();
-				frame.setLocationRelativeTo(null);
 
-				new GUI();
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						new GUI();
+					}
+				}).start();
 
 			} catch (Exception ex) {
 
