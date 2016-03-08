@@ -146,6 +146,8 @@ public class GameFiles {
 	public static HashMap<Color, Integer> loadAffilation(
 			HashMap<String, Object> map, BufferedImage biBackend) {
 
+		HashMap<Color, Integer> map2 = new HashMap<Color, Integer>();
+
 		Iterator it = ((HashMap<String, Object>) map.get("provincedata"))
 				.entrySet().iterator();
 		while (it.hasNext()) {
@@ -155,11 +157,19 @@ public class GameFiles {
 			String value = (String) ((HashMap<String, Object>) ((HashMap<String, Object>) map
 					.get("provincedata")).get(pair.getKey())).get("city");
 			System.out.println(value);
-			int x = Integer.parseInt(value.substring(value.indexOf('='),
-					value.indexOf('y') - 1));
-			int y = Integer.parseInt(value.substring(value.lastIndexOf('='),
-					value.indexOf('}') - 1));
-			Color color = new Color(biBackend.getRGB(x, y));
+
+			if (value != null) {
+
+				int x = Integer.parseInt(value.substring(value.indexOf('='),
+						value.indexOf('y') - 1));
+				int y = Integer.parseInt(value.substring(
+						value.lastIndexOf('='), value.indexOf('}') - 1));
+				Color color = new Color(biBackend.getRGB(x, y));
+
+				map2.put(color, (Integer) pair.getKey());
+
+			}
+
 			it.remove();
 		}
 

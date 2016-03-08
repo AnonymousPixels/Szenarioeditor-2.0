@@ -35,7 +35,7 @@ public class TestAffliliation {
 		HashMap<String, Object> map = Settings
 				.getSettings(
 						"C:\\Program Files (x86)\\Steam\\SteamApps\\common\\For The Glory",
-						"German",
+						"English",
 						"C:\\Program Files (x86)\\Steam\\steamapps\\common\\For The Glory\\Scenarios\\1419 - The Grand Campaign.eeg");
 
 		io.GameFiles.loadAffilation(map, img);
