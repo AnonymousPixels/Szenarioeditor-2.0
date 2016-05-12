@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -115,12 +113,13 @@ public class MapPanel extends JPanel implements MouseListener,
 			x = newWidth;
 		}
 
-		g.drawImage(biBackendOriginal, 0, 0, this.getWidth(), this.getWidth(),
-				x - newWidth, y - newHeight, x + newWidth, y + newHeight * 2,
+		g.drawImage(biBackendOriginal, 0, 0, this.getWidth(), this.getHeight(),
+				x - newWidth, y - newHeight, x + newWidth, y + newHeight,
 				null);
 		this.getGraphics().drawImage(biFrontendOriginal, 0, 0, this.getWidth(),
 				this.getHeight(), x - newWidth, y - newHeight, x + newWidth,
 				y + newHeight, null);
+
 		Color target = new Color(biBackend.getRGB(
 				(arg0.getX() + sliderX.getValue()),
 				(arg0.getY() + sliderY.getValue())));
