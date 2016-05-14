@@ -21,7 +21,7 @@ public class IOTestMain {
 		for (int i = 0; i < 1614; i++) {
 			System.out.println(
 					((HashMap<String, Object>) ((HashMap<String, Object>) hash.get("provincedata")).get("" + i))
-							.get("city"));
+							.get("income"));
 		}
 
 		

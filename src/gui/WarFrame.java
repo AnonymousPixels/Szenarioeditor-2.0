@@ -55,6 +55,7 @@ public class WarFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("rawtypes")
 	public WarFrame() {
 		setTitle("Add new war");
 		setMinimumSize(new Dimension(550, 400));

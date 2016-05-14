@@ -147,8 +147,15 @@ public class ColonyPanel extends JPanel {
 		return map;
 	}
 
+	public void setID(String id){
+		lblID2.setText(id);
+	}
+	
 	public void setData(Map<String, String> map) {
-		txtName.setText(map.get("name"));
+		
+		
+		
+		txtName.setText(map.get("name").replace("city_CITY_", ""));
 		txtManpower.setText(map.get("manpower"));
 		txtIncome.setText(map.get("income"));
 		txtValue.setText(map.get("value"));
