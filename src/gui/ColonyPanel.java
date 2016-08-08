@@ -6,15 +6,11 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -145,6 +141,10 @@ public class ColonyPanel extends JPanel {
 		map.put("goods", jcbGoods.getSelectedItem().toString());
 
 		return map;
+	}
+
+	public void setID(String id) {
+		lblID2.setText(id);
 	}
 
 	public void setData(Map<String, String> map) {

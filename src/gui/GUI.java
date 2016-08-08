@@ -52,7 +52,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 	MapPanel mapPanel;
 
 	static HashMap<String, Object> dataMap = new HashMap<String, Object>();
-
+	static HashMap<String, Object> dataMap2 = new HashMap<String, Object>();
 	String gamePath, mod, language, scenario;
 
 	// TODO Überarbeiten...
@@ -190,7 +190,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 	}
 
 	void readData() throws IOException {
-
+		System.out.println("ReadingData");
 		gamePath = SelectionGUI.getGamePath();
 		language = SelectionGUI.getLanguage();
 		mod = SelectionGUI.getMod();
@@ -203,6 +203,7 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 		}
 
 		dataMap = Settings.getSettings(gamePath, language, scenario);
+		dataMap2 = new HashMap<String, Object>(dataMap);
 	}
 
 	// TODO Überarbeiten...
@@ -1945,15 +1946,23 @@ public class GUI implements ActionListener, IMapEventListener, ChangeListener {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void provinceClicked(String s) {
-		for (Object ob : essentials.Essentials
-				.getHashMapObjects((HashMap<Object, Object>) dataMap
-						.get("provincedata"))) {
-			System.out.println("d");
-			ob.toString();
 
+		// for (Object ob : essentials.Essentials
+		// .getHashMapObjects((HashMap<Object, Object>) dataMap
+		// .get("provincedata"))) {
+		// System.out.println("d");
+		// ob.toString();
+		//
+		// }
+		try {
+			readData();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		HashMap<String, String> colonyMap = (HashMap<String, String>) ((HashMap<String, Object>) dataMap
 				.get("provincedata")).get(s);
 		colonyPanel.setData(colonyMap);
+		colonyPanel.setID(s);
 	}
 }
