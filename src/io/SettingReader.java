@@ -216,7 +216,6 @@ public class SettingReader {
 
 		for (int i = 0; i < lines.length; i++) {
 			if (!lines[i].contains("_DESC") && lines[i].charAt(0) != '#') {
-
 				countrytag = lines[i].substring(0, 3);
 				countryname = lines[i].substring(4, lines[i].lastIndexOf(";")).replaceAll(";", "");
 				countryhashmap.put("name", countryname);
@@ -476,6 +475,7 @@ public class SettingReader {
 			input = input.replaceAll(" ", "");
 			input = input.replaceAll("	", "");
 			input = input.replaceAll("\"", "");
+
 			if (input.contains("{")) {
 				brackets++;
 			}
@@ -492,7 +492,7 @@ public class SettingReader {
 				for (String s : checkFor) {
 
 					if (input.contains(s)) {
-
+						
 						String property = input.replaceAll(s + "=", "");
 
 						provincehashmap.put(s, property);
