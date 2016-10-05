@@ -15,29 +15,29 @@ public class IOTestMain {
 
 		HashMap<String, Object> hash = new HashMap<String, Object>();
 
-		hash = io.Settings.getSettings("C://Program Files (x86)//Steam//steamapps//common//For The Glory", "German",
-				"1419 - The Grand Campaign.eeg");
+		hash = io.Settings.getSettings("G://Steam//steamapps//common//For The Glory", "German",
+				"//Mods//AGCEEP//Scenarios//1419 - The Grand Campaign.eeg");
 
-		for (int i = 0; i < 1614; i++) {
-			System.out.println(
-					((HashMap<String, Object>) ((HashMap<String, Object>) hash.get("provincedata")).get("" + i))
-							.get("income"));
-		}
+//		for (int i = 0; i < 1614; i++) {
+//			System.out.println(
+//					((HashMap<String, Object>) ((HashMap<String, Object>) hash.get("provincedata")).get("" + i))
+//							.get("income"));
+//		}
 
 		
-		 System.out.println(
-		 "" + ((HashMap<String, Object>) ((HashMap<String, Object>)
-		 hash.get("provincedata")).get("1404"))
-		 .get("city"));
-		 // System.out.println("----------------------------");
-		  for (String key : ((HashMap<String, Object>)
-		  hash.get("culturedata")).keySet()) {
-		  System.out.println(key + ((HashMap<String, Object>)
-		  ((HashMap<String,
-		  Object>) hash.get("culturedata"))
-		  .get("culturedatatag")));
-		 
-		  }
+//		 System.out.println(
+//		 "" + ((HashMap<String, Object>) ((HashMap<String, Object>)
+//		 hash.get("provincedata")).get("1404"))
+//		 .get("city"));
+//		 // System.out.println("----------------------------");
+//		  for (String key : ((HashMap<String, Object>)
+//		  hash.get("culturedata")).keySet()) {
+//		  System.out.println(key + ((HashMap<String, Object>)
+//		  ((HashMap<String,
+//		  Object>) hash.get("culturedata"))
+//		  .get("culturedatatag")));
+//		 
+//		  }
 
 		// new SaveSettings(hash);
 

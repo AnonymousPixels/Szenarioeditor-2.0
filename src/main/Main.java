@@ -6,6 +6,7 @@ import java.awt.Font;
 import javax.swing.UIManager;
 
 import gui.SelectionGUI;
+import gui.StartSelectionGUI;
 
 /**
  * Main class of the szenario editor. Contains main void and handles the program
@@ -27,6 +28,7 @@ public class Main {
 			System.out.println("Error while setting LookAndFeel! Default Java LookAndFeel will be used...");
 		}
 		
+		new StartSelectionGUI();
 		new SelectionGUI();
 	}
 }

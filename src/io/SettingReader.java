@@ -1,8 +1,10 @@
 package io;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class SettingReader {
@@ -14,7 +16,7 @@ public class SettingReader {
 	private static HashMap<String, Object> provincesettinghashmap, provincehashmap, countryhashmap,
 			countrysettinghashmap, countrynamehashmap, culturesettingshashmap, culturehashmap, techgroupsettingshashmap,
 
-			techgrouphashmap, scenarioeeghashmap, scenariohashmap;
+			techgrouphashmap, scenarioeeghashmap, scenariohashmap, startselectionhashmap;
 
 	private static String id;
 	private static String varification;
@@ -26,6 +28,8 @@ public class SettingReader {
 
 		System.out.println("Scenariofilepath: " + scenariofilepath);
 		System.out.println("Gamefilepath: " + gamepath);
+		getStartSelection(gamepath + scenariofilepath);
+
 		getCountrySettings(gamepath + "//Db//countries.txt");
 		getProvinces(gamepath + "//Db//Map//provinces.txt");
 		getLocalisation(gamepath + "//Localisation//" + language + "//countries.csv", hashmap);
@@ -37,6 +41,73 @@ public class SettingReader {
 
 		System.out.println("Finished reading data files");
 
+	}
+
+	private void getStartSelection(String scenariofilepath) throws IOException {
+		startselectionhashmap = new HashMap<String, Object>();
+		file = new FileReader(scenariofilepath);
+		reader = new BufferedReader(file);
+
+		StringBuilder sb = new StringBuilder();
+		try {
+
+			String line = reader.readLine();
+
+			while (line != null) {
+				sb.append(line);
+				System.out.println(line);
+				sb.append("\n");
+				line = reader.readLine();
+			}
+		} finally {
+			reader.close();
+		}
+
+		line = sb.toString();
+		String varname = "";
+		String varvalue = "";
+		String[] lines = line.split("[\\r\\n]+");
+		
+
+		for (String input : lines) {
+
+			int i = input.indexOf("#");
+			if (i != -1) {
+				input = input.substring(0, i);
+			}
+
+			if (input.contains("{")) {
+				brackets++;
+				if (!varvalue.equals("")) {
+					varname = varname + varvalue.substring(0, varvalue.indexOf("=")) + ";";
+					varname = varname.replaceAll(" ", "");
+					startselectionhashmap.put(varvalue.substring(0, varvalue.indexOf("=")), varvalue);
+					System.out.println(varvalue);
+				}
+				varvalue = "";
+			}
+			if (input.contains("}")) {
+				brackets--;
+			}
+			if (brackets != 0) {
+				varvalue = varvalue + input;
+				varvalue = varvalue.replaceAll("\t", "").replaceAll("  ", "");
+			}
+			
+			
+
+		}
+		System.out.println(varname);
+		String[] selected = varname.split(";");
+		String selectable = "";
+		for(int i = 0;i < selected.length;i++){
+			if(selected[i].length() == 3){
+				selectable = selectable + selected[i] + ";";
+			}
+		}
+		
+		Settings.putInHashMap("selectedatstart", selectable);
+		Settings.putInHashMap("startselection", startselectionhashmap.clone());
 	}
 
 	private void getReligion(String culturefilepath) throws IOException {
@@ -492,7 +563,7 @@ public class SettingReader {
 				for (String s : checkFor) {
 
 					if (input.contains(s)) {
-						
+
 						String property = input.replaceAll(s + "=", "");
 
 						provincehashmap.put(s, property);
