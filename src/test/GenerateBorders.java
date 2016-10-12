@@ -95,15 +95,11 @@ public class GenerateBorders {
 
 				}
 			}
-			System.out.println(north);
-			System.out.println(south);
-			System.out.println(right);
-			System.out.println(left);
 
-			Pnorth.put(pair.getValue(), north);
-			Psouth.put(pair.getValue(), south);
-			Pleft.put(pair.getValue(), left);
-			Pright.put(pair.getValue(), right);
+			Pnorth.put(String.valueOf(pair.getValue()), north.toString());
+			Psouth.put(String.valueOf(pair.getValue()), south.toString());
+			Pleft.put(String.valueOf(pair.getValue()), left.toString());
+			Pright.put(String.valueOf(pair.getValue()), right.toString());
 
 		}
 		Pnorth.store(new FileWriter(new File("C://g//north.properties")), "");
