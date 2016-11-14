@@ -1,10 +1,8 @@
 package io;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class SettingReader {
@@ -23,21 +21,25 @@ public class SettingReader {
 
 	private static String countryname, countrytag;
 
+	private String scenariofilepath = "";
+	private String gamepath = "";
+
 	public SettingReader(String gamepath, String language, HashMap<String, Object> hashmap, String scenariofilepath)
 			throws IOException {
 
+		this.scenariofilepath = scenariofilepath;
+		this.gamepath = gamepath;
+
 		System.out.println("Scenariofilepath: " + scenariofilepath);
 		System.out.println("Gamefilepath: " + gamepath);
-		getStartSelection(gamepath + scenariofilepath);
 
+		getStartSelection(gamepath + scenariofilepath);
 		getCountrySettings(gamepath + "//Db//countries.txt");
 		getProvinces(gamepath + "//Db//Map//provinces.txt");
 		getLocalisation(gamepath + "//Localisation//" + language + "//countries.csv", hashmap);
 		getCultures(gamepath + "//Db//cultures.txt");
 		getTechgroups(gamepath + "//Db//Technologies//techgroups.txt");
 		getReligion(gamepath + "//Db//Religions//religions.txt");
-
-		// getScenario(scenariofilepath);
 
 		System.out.println("Finished reading data files");
 
@@ -67,7 +69,7 @@ public class SettingReader {
 		String varname = "";
 		String varvalue = "";
 		String[] lines = line.split("[\\r\\n]+");
-		
+		String includestrinig = "";
 
 		for (String input : lines) {
 
@@ -82,7 +84,7 @@ public class SettingReader {
 					varname = varname + varvalue.substring(0, varvalue.indexOf("=")) + ";";
 					varname = varname.replaceAll(" ", "");
 					startselectionhashmap.put(varvalue.substring(0, varvalue.indexOf("=")), varvalue);
-					System.out.println(varvalue);
+					// System.out.println(varvalue);
 				}
 				varvalue = "";
 			}
@@ -93,21 +95,88 @@ public class SettingReader {
 				varvalue = varvalue + input;
 				varvalue = varvalue.replaceAll("\t", "").replaceAll("  ", "");
 			}
-			
-			
+
+			if (input.contains("include")) {
+				includestrinig = includestrinig + input.replace("include", "") + ";";
+			}
 
 		}
-		System.out.println(varname);
+
 		String[] selected = varname.split(";");
 		String selectable = "";
-		for(int i = 0;i < selected.length;i++){
-			if(selected[i].length() == 3){
+		for (int i = 0; i < selected.length; i++) {
+			if (selected[i].length() == 3) {
 				selectable = selectable + selected[i] + ";";
 			}
 		}
-		
+
+		String[] includes = includestrinig.split(";");
+		for (int i = 0; i < includes.length; i++) {
+			includes[i] = includes[i].replaceAll(" ", "");
+			includes[i] = includes[i].replaceAll("=", "");
+			includes[i] = includes[i].replaceAll("\"", "");
+			// System.out.println(includes[i]);
+		}
+
+		for (int i = 0; i < includes.length; i++) {
+			getIncludes(includes[i]);
+		}
+
 		Settings.putInHashMap("selectedatstart", selectable);
 		Settings.putInHashMap("startselection", startselectionhashmap.clone());
+	}
+
+	private void getIncludes(String includefilepath) throws IOException {
+		System.out.println(includefilepath);
+		System.out.println("===========================================");
+
+		includefilepath = gamepath + "//" + includefilepath;
+		System.out.println(includefilepath);
+
+		file = new FileReader(includefilepath);
+		reader = new BufferedReader(file);
+
+		System.out.println(includefilepath);
+		System.out.println("===========================================");
+
+		StringBuilder sb = new StringBuilder();
+		try {
+
+			String line = reader.readLine();
+
+			while (line != null) {
+				sb.append(line);
+				System.out.println(line);
+				sb.append("\n");
+				line = reader.readLine();
+			}
+		} finally {
+			reader.close();
+		}
+
+		line = sb.toString();
+		String varname = "";
+		String varvalue = "";
+		String[] lines = line.split("[\\r\\n]+");
+		String includestrinig = "";
+
+		for (String input : lines) {
+
+			if (includestrinig != "") {
+				String[] includes = includestrinig.split(";");
+				for (int i = 0; i < includes.length; i++) {
+					includes[i] = includes[i].replaceAll(" ", "");
+					includes[i] = includes[i].replaceAll("=", "");
+					includes[i] = includes[i].replaceAll("\"", "");
+					System.out.println(includes[i]);
+				}
+				for (int i = 0; i < includes.length; i++) {
+					getIncludes(includes[i]);
+				}
+			}
+
+		}
+
 	}
 
 	private void getReligion(String culturefilepath) throws IOException {
