@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
@@ -68,13 +69,28 @@ public class GenerateBorders {
 		Properties Psouth = new Properties();
 		Properties Pleft = new Properties();
 		Properties Pright = new Properties();
+
+		Pnorth.load(new FileInputStream(new File("C://g//north.properties")));
+		Psouth.load(new FileInputStream(new File("C://g//south.properties")));
+		Pleft.load(new FileInputStream(new File("C://g//left.properties")));
+		Pright.load(new FileInputStream(new File("C://g//right.properties")));
+
 		Iterator it = map.entrySet().iterator();
+		int i = map.size();
+		int e = 0;
+		System.out.println("Image: "+img.getWidth()+" "+img.getHeight());
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
-			System.out.println(pair.getKey() + " " + pair.getValue());
+			System.out.println("A:" + pair.getKey() + " " + pair.getValue());
+			e++;
+			System.out.println(e + "/" + i);
+			if (Pnorth.containsKey(String.valueOf(pair.getValue()))) {
+				System.out.println("skip");
+				continue;
 
-			Point north = new Point(10000, 10000);
-			Point left = new Point(10000, 10000);
+			}
+			Point north = new Point(img.getWidth(), img.getHeight());
+			Point left = new Point(img.getWidth(), img.getHeight());
 			Point right = new Point(-1, -1);
 			Point south = new Point(-1, -1);
 
@@ -82,14 +98,18 @@ public class GenerateBorders {
 				for (int y = 0; y < img.getHeight(); y++) {
 
 					if (img2.getRGB(x, y) == ((Color) pair.getKey()).getRGB()) {
-						if (x < left.getX())
+						if (x < left.getX()) {
 							left = new Point(x, y);
-						if (x > right.getX())
+						}
+						if (x > right.getX()) {
 							right = new Point(x, y);
-						if (y < north.getY())
+						}
+						if (y < north.getY()) {
 							north = new Point(x, y);
-						if (y > south.getY())
+						}
+						if (y > south.getY()) {
 							south = new Point(x, y);
+						}
 
 					}
 
@@ -101,10 +121,14 @@ public class GenerateBorders {
 			Pleft.put(String.valueOf(pair.getValue()), left.toString());
 			Pright.put(String.valueOf(pair.getValue()), right.toString());
 
+			Pnorth.store(new FileWriter(new File("C://g//north.properties")),
+					"");
+			Psouth.store(new FileWriter(new File("C://g//south.properties")),
+					"");
+			Pleft.store(new FileWriter(new File("C://g//left.properties")), "");
+			Pright.store(new FileWriter(new File("C://g//right.properties")),
+					"");
 		}
-		Pnorth.store(new FileWriter(new File("C://g//north.properties")), "");
-		Psouth.store(new FileWriter(new File("C://g//south.properties")), "");
-		Pleft.store(new FileWriter(new File("C://g//left.properties")), "");
-		Pright.store(new FileWriter(new File("C://g//right.properties")), "");
+
 	}
 }
