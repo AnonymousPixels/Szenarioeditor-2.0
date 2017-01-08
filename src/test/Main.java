@@ -50,13 +50,15 @@ public class Main implements map.IMapEventListener {
 								.getSettings(
 										"C:\\Program Files (x86)\\Steam\\SteamApps\\common\\For The Glory",
 										"English",
-										"C:\\Program Files (x86)\\Steam\\SteamApps\\common\\For The Glory\\Scenarios\\1419 - The Grand Campaign.eeg"),
+										"\\Scenarios\\1419 - The Grand Campaign.eeg"),
 						img2));
+		map.addMapListener(new Main());
 		JFrame frame = new JFrame("Test MapPanel");
 		frame.setBounds(10, 10, 500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.add(map);
+		map.setMultiSelectionMode(true);
 
 	}
 
@@ -66,8 +68,8 @@ public class Main implements map.IMapEventListener {
 	 * @see scenarioeditor.IMapEventListener#provinceClicked(java.lang.String)
 	 */
 	@Override
-	public void provinceClicked(String id) {
-		// TODO Auto-generated method stub
+	public void provinceClicked(String id, String selected) {
+		System.out.println(id + " " + selected);
 
 	}
 

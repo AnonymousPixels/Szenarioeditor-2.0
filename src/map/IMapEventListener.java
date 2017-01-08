@@ -8,5 +8,5 @@ package map;
  *
  */
 public interface IMapEventListener {
-	void provinceClicked(String id);
+	void provinceClicked(String id, String selected);
 }

@@ -152,11 +152,11 @@ public class GameFiles {
 				.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
-			System.out.println(pair.getKey());
+//			System.out.println(pair.getKey());
 
 			String value = (String) ((HashMap<String, Object>) ((HashMap<String, Object>) map
 					.get("provincedata")).get(pair.getKey())).get("city");
-			System.out.println(value);
+//			System.out.println(value);
 
 			if (value != null) {
 
@@ -165,9 +165,9 @@ public class GameFiles {
 				int y = Integer.parseInt(value.substring(
 						value.lastIndexOf('=') + 1, value.indexOf('}')));
 				Color color = new Color(biBackend.getRGB(x, y));
-				System.out.println(x + " " + y);
-				System.out.println(color.getRed() + " " + color.getGreen()
-						+ " " + color.getBlue());
+//				System.out.println(x + " " + y);
+//				System.out.println(color.getRed() + " " + color.getGreen()
+//						+ " " + color.getBlue());
 				map2.put(color, Integer.parseInt((String) pair.getKey()));
 
 			}
